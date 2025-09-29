@@ -1,0 +1,31 @@
+name: Main Angular Workflow (Development)
+
+on:
+  workflow_call:
+  push:
+    branches:
+      - development
+    paths:
+      - "apps/frontend/angular/**"
+      - ".github/workflows/ci-angular-app-development.yml"
+      - "angular.json"
+jobs:
+  build-angular-development:
+    uses: ./.github/workflows/build-angular-app.yml
+    with:
+      project-name: "fd-app"
+      project-directory: "apps/frontend/angular/fd-app"
+      configuration: "development"
+      environment: "development"
+      node-version: "22"
+
+  deploy-angular-development:
+    needs: build-angular-development
+    uses: ./.github/workflows/deploy-angular-app.yml
+    with:
+      project-name: "fd-app"
+      environment: "development"
+    secrets:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_DEPLOYMENT_ROLE_ARN: ${{ secrets.AWS_DEPLOYMENT_ROLE_ARN }}
+      AWS_CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_DEV }}

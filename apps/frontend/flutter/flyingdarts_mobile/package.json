@@ -1,0 +1,32 @@
+{
+  "name": "flyingdarts_mobile",
+  "version": "1.0.4",
+  "description": "A flutter app to send score to Flyingdarts.net",
+  "main": "lib/main.dart",
+  "scripts": {
+    "generate": "dart run build_runner build --delete-conflicting-outputs",
+    "build": "flutter build web --target lib/main_dev.dart",
+    "build:ios": "flutter build ios --target lib/main_dev.dart",
+    "build:ios:dev:unsigned": "flutter build ios --target lib/main_dev.dart --no-codesign --flavor dev",
+    "build:ios:acc:unsigned": "flutter build ios --target lib/main_acc.dart --no-codesign --flavor acc",
+    "build:ios:prod:unsigned": "flutter build ios --target lib/main_prod.dart --no-codesign --flavor prod",
+    "test": "flutter test",
+    "clean": "flutter clean && dart run build_runner clean",
+    "clean:generated": "dart run build_runner clean"
+  },
+  "dependencies": {
+    "core": "*",
+    "keyboard": "*",
+    "language": "*",
+    "profile": "*",
+    "speech": "*",
+    "splash": "*",
+    "internationalization": "*",
+    "ui": "*",
+    "websocket": "*",
+    "app.config.core": "*",
+    "app.config.prefs": "*",
+    "app.config.secrets": "*",
+    "api_sdk": "*"
+  }
+}
