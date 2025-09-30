@@ -1,0 +1,62 @@
+name: Main Angular Workflow (Production)
+
+on:
+  workflow_call:
+  push:
+    branches:
+      - production
+    paths:
+      - "apps/frontend/angular/**"
+      - ".github/workflows/ci-angular-app-production.yml"
+      - "angular.json"
+jobs:
+  e2e-preprod:
+    name: Run E2E (headless) against Staging
+    runs-on: ubuntu-latest
+    env:
+      E2E_HEADLESS_MODE: 'true'
+      AUTHRESS_SERVICE_CLIENT_ACCESS_KEY: ${{ secrets.AUTHRESS_SERVICE_CLIENT_ACCESS_KEY }}
+      AUTHRESS_SERVICE_CLIENT_ACCESS_KEY_OPPONENT: ${{ secrets.AUTHRESS_SERVICE_CLIENT_ACCESS_KEY_OPPONENT }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore e2e/Flyingdarts.E2E.csproj
+
+      - name: Build E2E tests (Release)
+        run: dotnet build e2e/Flyingdarts.E2E.csproj -c Release --no-restore
+
+      - name: Install Playwright browsers
+        shell: pwsh
+        run: |
+          ./e2e/bin/Release/net9.0/playwright.ps1 install --with-deps
+
+      - name: Run E2E tests (headless)
+        run: dotnet test e2e/Flyingdarts.E2E.csproj -c Release --no-build
+
+  build-angular-production:
+    needs: e2e-preprod
+    uses: ./.github/workflows/build-angular-app.yml
+    with:
+      project-name: "fd-app"
+      project-directory: "apps/frontend/angular/fd-app"
+      configuration: "production"
+      environment: "production"
+      node-version: "22"
+
+  deploy-angular-production:
+    needs: build-angular-production
+    uses: ./.github/workflows/deploy-angular-app.yml
+    with:
+      project-name: "fd-app"
+      environment: "production"
+    secrets:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_DEPLOYMENT_ROLE_ARN: ${{ secrets.AWS_DEPLOYMENT_ROLE_ARN }}
+      AWS_CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_PROD }}
