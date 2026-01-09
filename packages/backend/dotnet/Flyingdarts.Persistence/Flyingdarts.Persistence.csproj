@@ -19,7 +19,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Core" Version="4.0.0.16" />
+    <PackageReference Include="AWSSDK.Core" Version="4.0.3.3" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.3" />
     <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="4.0.2.4" />
     <PackageReference
