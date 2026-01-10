@@ -13,6 +13,17 @@ import 'deep_link_service.dart';
 import 'http_service.dart';
 import 'token_service.dart';
 
+/// Function type for canLaunchUrl
+typedef CanLaunchUrlFn = Future<bool> Function(Uri url);
+
+/// Function type for launchUrl
+typedef LaunchUrlFn =
+    Future<bool> Function(
+      Uri url, {
+      LaunchMode mode,
+      WebViewConfiguration webViewConfiguration,
+    });
+
 /// Main authentication service that orchestrates all auth-related operations
 class AuthenticationService extends ChangeNotifier {
   final AuthressConfiguration _config;
@@ -20,6 +31,8 @@ class AuthenticationService extends ChangeNotifier {
   final HttpService _httpService;
   final DeepLinkService _deepLinkService;
   final CryptoService _cryptoService;
+  final CanLaunchUrlFn _canLaunchUrl;
+  final LaunchUrlFn _launchUrl;
 
   AuthState _state = const AuthStateUnauthenticated();
 
@@ -29,11 +42,15 @@ class AuthenticationService extends ChangeNotifier {
     required HttpService httpService,
     required DeepLinkService deepLinkService,
     required CryptoService cryptoService,
+    CanLaunchUrlFn? canLaunchUrlFn,
+    LaunchUrlFn? launchUrlFn,
   }) : _config = config,
        _tokenService = tokenService,
        _httpService = httpService,
        _deepLinkService = deepLinkService,
-       _cryptoService = cryptoService;
+       _cryptoService = cryptoService,
+       _canLaunchUrl = canLaunchUrlFn ?? canLaunchUrl,
+       _launchUrl = launchUrlFn ?? launchUrl;
 
   /// Factory constructor with dependency injection
   factory AuthenticationService.create({
@@ -53,6 +70,28 @@ class AuthenticationService extends ChangeNotifier {
       httpService: httpService,
       deepLinkService: deepLinkService,
       cryptoService: cryptoService,
+    );
+  }
+
+  /// Test constructor that allows dependency injection for testing
+  @visibleForTesting
+  factory AuthenticationService.forTesting({
+    required AuthressConfiguration config,
+    required TokenService tokenService,
+    required HttpService httpService,
+    required DeepLinkService deepLinkService,
+    required CryptoService cryptoService,
+    CanLaunchUrlFn? canLaunchUrlFn,
+    LaunchUrlFn? launchUrlFn,
+  }) {
+    return AuthenticationService._(
+      config: config,
+      tokenService: tokenService,
+      httpService: httpService,
+      deepLinkService: deepLinkService,
+      cryptoService: cryptoService,
+      canLaunchUrlFn: canLaunchUrlFn,
+      launchUrlFn: launchUrlFn,
     );
   }
 
@@ -116,10 +155,10 @@ class AuthenticationService extends ChangeNotifier {
       );
 
       // Launch browser for authentication with platform-specific handling
-      if (await canLaunchUrl(Uri.parse(authUrl))) {
+      if (await _canLaunchUrl(Uri.parse(authUrl))) {
         if (Platform.isIOS) {
           // Use in-app WebView on iOS to prevent "Return to Safari" button issue
-          await launchUrl(
+          await _launchUrl(
             Uri.parse(authUrl),
             mode: LaunchMode.inAppWebView,
             webViewConfiguration: const WebViewConfiguration(
@@ -129,7 +168,7 @@ class AuthenticationService extends ChangeNotifier {
           );
         } else {
           // Use external browser on other platforms
-          await launchUrl(
+          await _launchUrl(
             Uri.parse(authUrl),
             mode: LaunchMode.externalApplication,
           );

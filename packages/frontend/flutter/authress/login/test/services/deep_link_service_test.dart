@@ -35,7 +35,7 @@ void main() {
 
     group('Initialization', () {
       test('initializes successfully with default config', () async {
-        deepLinkService = DeepLinkService();
+        deepLinkService = DeepLinkService(const DeepLinkConfig(), mockAppLinks);
 
         await deepLinkService.initialize();
 
@@ -50,7 +50,7 @@ void main() {
           timeoutDuration: Duration(minutes: 10),
         );
 
-        deepLinkService = DeepLinkService(customConfig);
+        deepLinkService = DeepLinkService(customConfig, mockAppLinks);
 
         await deepLinkService.initialize();
 
@@ -65,7 +65,7 @@ void main() {
           () => mockAppLinks.getInitialLink(),
         ).thenAnswer((_) async => initialUri);
 
-        deepLinkService = DeepLinkService();
+        deepLinkService = DeepLinkService(const DeepLinkConfig(), mockAppLinks);
 
         // Start waiting for callback before initialization
         final callbackFuture = deepLinkService.waitForAuthCallback();
@@ -84,7 +84,7 @@ void main() {
           () => mockAppLinks.getInitialLink(),
         ).thenThrow(Exception('Platform error'));
 
-        deepLinkService = DeepLinkService();
+        deepLinkService = DeepLinkService(const DeepLinkConfig(), mockAppLinks);
 
         // Should not throw
         await expectLater(deepLinkService.initialize(), completes);
@@ -93,7 +93,7 @@ void main() {
 
     group('Deep Link Processing', () {
       setUp(() async {
-        deepLinkService = DeepLinkService();
+        deepLinkService = DeepLinkService(const DeepLinkConfig(), mockAppLinks);
         await deepLinkService.initialize();
       });
 
@@ -131,7 +131,7 @@ void main() {
       test('processes deep link with custom config', () async {
         const customConfig = DeepLinkConfig(scheme: 'myapp', host: 'oauth');
         deepLinkService.dispose();
-        deepLinkService = DeepLinkService(customConfig);
+        deepLinkService = DeepLinkService(customConfig, mockAppLinks);
         await deepLinkService.initialize();
 
         final callbackFuture = deepLinkService.waitForAuthCallback();
@@ -169,7 +169,7 @@ void main() {
 
     group('Timeout Handling', () {
       setUp(() async {
-        deepLinkService = DeepLinkService();
+        deepLinkService = DeepLinkService(const DeepLinkConfig(), mockAppLinks);
         await deepLinkService.initialize();
       });
 
@@ -178,7 +178,7 @@ void main() {
         const config = DeepLinkConfig(timeoutDuration: shortTimeout);
 
         deepLinkService.dispose();
-        deepLinkService = DeepLinkService(config);
+        deepLinkService = DeepLinkService(config, mockAppLinks);
         await deepLinkService.initialize();
 
         final callbackFuture = deepLinkService.waitForAuthCallback();
@@ -192,7 +192,7 @@ void main() {
         const config = DeepLinkConfig(timeoutDuration: longTimeout);
 
         deepLinkService.dispose();
-        deepLinkService = DeepLinkService(config);
+        deepLinkService = DeepLinkService(config, mockAppLinks);
         await deepLinkService.initialize();
 
         final callbackFuture = deepLinkService.waitForAuthCallback();
@@ -210,7 +210,7 @@ void main() {
         const config = DeepLinkConfig(timeoutDuration: veryShortTimeout);
 
         deepLinkService.dispose();
-        deepLinkService = DeepLinkService(config);
+        deepLinkService = DeepLinkService(config, mockAppLinks);
         await deepLinkService.initialize();
 
         final startTime = DateTime.now();
@@ -227,7 +227,7 @@ void main() {
 
     group('Callback Management', () {
       setUp(() async {
-        deepLinkService = DeepLinkService();
+        deepLinkService = DeepLinkService(const DeepLinkConfig(), mockAppLinks);
         await deepLinkService.initialize();
       });
 
@@ -279,7 +279,7 @@ void main() {
 
     group('Edge Cases', () {
       setUp(() async {
-        deepLinkService = DeepLinkService();
+        deepLinkService = DeepLinkService(const DeepLinkConfig(), mockAppLinks);
         await deepLinkService.initialize();
       });
 
@@ -327,7 +327,7 @@ void main() {
 
     group('Service Lifecycle', () {
       test('disposes properly', () async {
-        deepLinkService = DeepLinkService();
+        deepLinkService = DeepLinkService(const DeepLinkConfig(), mockAppLinks);
         await deepLinkService.initialize();
 
         final callbackFuture = deepLinkService.waitForAuthCallback();
@@ -340,7 +340,7 @@ void main() {
       });
 
       test('can be reinitialized after dispose', () async {
-        deepLinkService = DeepLinkService();
+        deepLinkService = DeepLinkService(const DeepLinkConfig(), mockAppLinks);
         await deepLinkService.initialize();
 
         deepLinkService.dispose();

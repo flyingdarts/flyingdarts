@@ -6,10 +6,21 @@ import 'package:flyingdarts_authress_login/src/models/deep_link_config.dart';
 import 'package:flyingdarts_authress_login/src/services/authentication_service.dart';
 import 'package:flyingdarts_authress_login/src/services/http_service.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../test_utils/mocks.dart';
 
+// Mock URL launcher functions for testing
+Future<bool> mockCanLaunchUrl(Uri url) async => true;
+Future<bool> mockLaunchUrl(
+  Uri url, {
+  LaunchMode mode = LaunchMode.platformDefault,
+  WebViewConfiguration webViewConfiguration = const WebViewConfiguration(),
+}) async => true;
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('AuthenticationService', () {
     late MockTokenService mockTokenService;
     late MockHttpService mockHttpService;
@@ -66,8 +77,14 @@ void main() {
 
     group('Initialization', () {
       setUp(() {
-        authService = AuthenticationService.create(
+        authService = AuthenticationService.forTesting(
           config: TestData.validConfig,
+          tokenService: mockTokenService,
+          httpService: mockHttpService,
+          deepLinkService: mockDeepLinkService,
+          cryptoService: mockCryptoService,
+          canLaunchUrlFn: mockCanLaunchUrl,
+          launchUrlFn: mockLaunchUrl,
         );
       });
 
@@ -119,13 +136,18 @@ void main() {
         ).thenAnswer(
           (_) async => HttpResponse(
             statusCode: 200,
-            body: '{"access_token": "new-token", "refresh_token": "new-refresh", "expires_in": 3600}',
+            body: json.encode({
+              'access_token': 'new-token',
+              'id_token': TestData.mockIdToken,
+              'refresh_token': 'new-refresh',
+              'expires_in': 3600,
+            }),
             headers: const {},
             isSuccess: true,
           ),
         );
 
-        when(() => mockTokenService.parseJwtPayload('new-token')).thenReturn({
+        when(() => mockTokenService.parseJwtPayload(TestData.mockIdToken)).thenReturn({
           'sub': TestData.validUserId,
           'email': TestData.validEmail,
           'name': 'Test User',
@@ -159,8 +181,14 @@ void main() {
 
     group('Authentication Flow', () {
       setUp(() {
-        authService = AuthenticationService.create(
+        authService = AuthenticationService.forTesting(
           config: TestData.validConfig,
+          tokenService: mockTokenService,
+          httpService: mockHttpService,
+          deepLinkService: mockDeepLinkService,
+          cryptoService: mockCryptoService,
+          canLaunchUrlFn: mockCanLaunchUrl,
+          launchUrlFn: mockLaunchUrl,
         );
       });
 
@@ -423,8 +451,14 @@ void main() {
 
     group('Token Management', () {
       setUp(() {
-        authService = AuthenticationService.create(
+        authService = AuthenticationService.forTesting(
           config: TestData.validConfig,
+          tokenService: mockTokenService,
+          httpService: mockHttpService,
+          deepLinkService: mockDeepLinkService,
+          cryptoService: mockCryptoService,
+          canLaunchUrlFn: mockCanLaunchUrl,
+          launchUrlFn: mockLaunchUrl,
         );
       });
 
@@ -486,7 +520,7 @@ void main() {
             userProfile: any(named: 'userProfile'),
             expiresAt: any(named: 'expiresAt'),
           ),
-        ).called(2); // Once during init, once during ensureValidToken
+        ).called(1); // Token refreshed during init; ensureValidToken finds valid token
       });
 
       test('returns null when token refresh fails', () async {
@@ -537,8 +571,14 @@ void main() {
 
     group('User Profile', () {
       setUp(() {
-        authService = AuthenticationService.create(
+        authService = AuthenticationService.forTesting(
           config: TestData.validConfig,
+          tokenService: mockTokenService,
+          httpService: mockHttpService,
+          deepLinkService: mockDeepLinkService,
+          cryptoService: mockCryptoService,
+          canLaunchUrlFn: mockCanLaunchUrl,
+          launchUrlFn: mockLaunchUrl,
         );
       });
 
@@ -621,8 +661,14 @@ void main() {
 
     group('Logout', () {
       setUp(() {
-        authService = AuthenticationService.create(
+        authService = AuthenticationService.forTesting(
           config: TestData.validConfig,
+          tokenService: mockTokenService,
+          httpService: mockHttpService,
+          deepLinkService: mockDeepLinkService,
+          cryptoService: mockCryptoService,
+          canLaunchUrlFn: mockCanLaunchUrl,
+          launchUrlFn: mockLaunchUrl,
         );
       });
 
@@ -659,8 +705,14 @@ void main() {
 
     group('State Management', () {
       setUp(() {
-        authService = AuthenticationService.create(
+        authService = AuthenticationService.forTesting(
           config: TestData.validConfig,
+          tokenService: mockTokenService,
+          httpService: mockHttpService,
+          deepLinkService: mockDeepLinkService,
+          cryptoService: mockCryptoService,
+          canLaunchUrlFn: mockCanLaunchUrl,
+          launchUrlFn: mockLaunchUrl,
         );
       });
 

@@ -1,0 +1,65 @@
+name: Publish Authress Login to pub.dev
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.38.6
+          channel: stable
+
+      - name: Get dependencies
+        working-directory: packages/frontend/flutter/authress/login
+        run: flutter pub get
+
+      - name: Run tests
+        working-directory: packages/frontend/flutter/authress/login
+        run: flutter test
+
+      - name: Validate package
+        working-directory: packages/frontend/flutter/authress/login
+        run: dart pub publish --dry-run
+
+  publish:
+    needs: test
+    permissions:
+      id-token: write
+      contents: read
+    environment: pub.dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.38.6
+          channel: stable
+
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Get dependencies
+        working-directory: packages/frontend/flutter/authress/login
+        run: flutter pub get
+
+      - name: Publish to pub.dev
+        working-directory: packages/frontend/flutter/authress/login
+        run: dart pub publish --force

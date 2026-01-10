@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:flyingdarts_authress_login/src/core/auth_context.dart';
+import 'package:flyingdarts_authress_login/src/core/auth_provider.dart';
+import 'package:flyingdarts_authress_login/src/core/page_guard.dart';
+import 'package:flyingdarts_authress_login/src/core/route_guard.dart';
+import 'package:flyingdarts_authress_login/src/models/auth_state.dart';
+import 'package:flyingdarts_authress_login/src/models/user_profile.dart';
+import 'package:flyingdarts_authress_login/src/services/authentication_service.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../login/lib/src/core/auth_context.dart';
-import '../../../login/lib/src/core/page_guard.dart';
-import '../../../login/lib/src/core/route_guard.dart';
-import '../../../login/lib/src/models/auth_state.dart';
-import '../../../login/lib/src/models/user_profile.dart';
-import '../../../login/lib/src/services/authentication_service.dart';
+import 'package:mocktail/mocktail.dart';
 
 // Mock for GoRouterState
 class MockGoRouterState extends Mock implements GoRouterState {}
@@ -32,12 +32,15 @@ void main() {
         (tester) async {
           when(() => mockRouterState.matchedLocation).thenReturn('/dashboard');
 
+          final user = const UserProfile(userId: 'user-123');
           final authContext = AuthressContext(
             authState: AuthStateAuthenticated(
-              user: const UserProfile(userId: 'user-123'),
+              user: user,
               accessToken: 'token',
               expiresAt: DateTime.now().add(const Duration(hours: 1)),
             ),
+            user: user,
+            accessToken: 'token',
           );
 
           await tester.pumpWidget(
@@ -63,12 +66,15 @@ void main() {
         (tester) async {
           when(() => mockRouterState.matchedLocation).thenReturn('/login');
 
+          final user = const UserProfile(userId: 'user-123');
           final authContext = AuthressContext(
             authState: AuthStateAuthenticated(
-              user: const UserProfile(userId: 'user-123'),
+              user: user,
               accessToken: 'token',
               expiresAt: DateTime.now().add(const Duration(hours: 1)),
             ),
+            user: user,
+            accessToken: 'token',
           );
 
           await tester.pumpWidget(
@@ -80,7 +86,7 @@ void main() {
                     context,
                     mockRouterState,
                   );
-                  expect(result, equals('/'));
+                  expect(result, equals('/home'));
                   return const SizedBox();
                 },
               ),
@@ -223,17 +229,20 @@ void main() {
       testWidgets('allows access when user has required roles', (tester) async {
         when(() => mockRouterState.matchedLocation).thenReturn('/admin');
 
+        final user = const UserProfile(
+          userId: 'user-123',
+          claims: {
+            'roles': ['admin'],
+          },
+        );
         final authContext = AuthressContext(
           authState: AuthStateAuthenticated(
-            user: const UserProfile(
-              userId: 'user-123',
-              claims: {
-                'roles': ['admin'],
-              },
-            ),
+            user: user,
             accessToken: 'token',
             expiresAt: DateTime.now().add(const Duration(hours: 1)),
           ),
+          user: user,
+          accessToken: 'token',
         );
 
         await tester.pumpWidget(
@@ -259,17 +268,20 @@ void main() {
       ) async {
         when(() => mockRouterState.matchedLocation).thenReturn('/admin');
 
+        final user = const UserProfile(
+          userId: 'user-123',
+          claims: {
+            'roles': ['user'],
+          }, // Missing admin role
+        );
         final authContext = AuthressContext(
           authState: AuthStateAuthenticated(
-            user: const UserProfile(
-              userId: 'user-123',
-              claims: {
-                'roles': ['user'],
-              }, // Missing admin role
-            ),
+            user: user,
             accessToken: 'token',
             expiresAt: DateTime.now().add(const Duration(hours: 1)),
           ),
+          user: user,
+          accessToken: 'token',
         );
 
         await tester.pumpWidget(
@@ -324,12 +336,15 @@ void main() {
       testWidgets('shows authenticated child when user is authenticated', (
         tester,
       ) async {
+        final user = const UserProfile(userId: 'user-123');
         final authContext = AuthressContext(
           authState: AuthStateAuthenticated(
-            user: const UserProfile(userId: 'user-123'),
+            user: user,
             accessToken: 'token',
             expiresAt: DateTime.now().add(const Duration(hours: 1)),
           ),
+          user: user,
+          accessToken: 'token',
         );
 
         await tester.pumpWidget(
@@ -405,17 +420,20 @@ void main() {
       });
 
       testWidgets('enforces role requirements', (tester) async {
+        final user = const UserProfile(
+          userId: 'user-123',
+          claims: {
+            'roles': ['user'],
+          }, // No admin role
+        );
         final authContext = AuthressContext(
           authState: AuthStateAuthenticated(
-            user: const UserProfile(
-              userId: 'user-123',
-              claims: {
-                'roles': ['user'],
-              }, // No admin role
-            ),
+            user: user,
             accessToken: 'token',
             expiresAt: DateTime.now().add(const Duration(hours: 1)),
           ),
+          user: user,
+          accessToken: 'token',
         );
 
         await tester.pumpWidget(
@@ -433,17 +451,20 @@ void main() {
       });
 
       testWidgets('allows access when user has required roles', (tester) async {
+        final user = const UserProfile(
+          userId: 'user-123',
+          claims: {
+            'roles': ['admin'],
+          },
+        );
         final authContext = AuthressContext(
           authState: AuthStateAuthenticated(
-            user: const UserProfile(
-              userId: 'user-123',
-              claims: {
-                'roles': ['admin'],
-              },
-            ),
+            user: user,
             accessToken: 'token',
             expiresAt: DateTime.now().add(const Duration(hours: 1)),
           ),
+          user: user,
+          accessToken: 'token',
         );
 
         await tester.pumpWidget(
@@ -461,18 +482,21 @@ void main() {
       });
 
       testWidgets('enforces group requirements', (tester) async {
+        final user = const UserProfile(
+          userId: 'user-123',
+          claims: {
+            'roles': ['admin'],
+            'groups': ['qa'], // Missing developers group
+          },
+        );
         final authContext = AuthressContext(
           authState: AuthStateAuthenticated(
-            user: const UserProfile(
-              userId: 'user-123',
-              claims: {
-                'roles': ['admin'],
-                'groups': ['qa'], // Missing developers group
-              },
-            ),
+            user: user,
             accessToken: 'token',
             expiresAt: DateTime.now().add(const Duration(hours: 1)),
           ),
+          user: user,
+          accessToken: 'token',
         );
 
         await tester.pumpWidget(
@@ -492,17 +516,20 @@ void main() {
       testWidgets('allows access when user has required groups', (
         tester,
       ) async {
+        final user = const UserProfile(
+          userId: 'user-123',
+          claims: {
+            'groups': ['developers'],
+          },
+        );
         final authContext = AuthressContext(
           authState: AuthStateAuthenticated(
-            user: const UserProfile(
-              userId: 'user-123',
-              claims: {
-                'groups': ['developers'],
-              },
-            ),
+            user: user,
             accessToken: 'token',
             expiresAt: DateTime.now().add(const Duration(hours: 1)),
           ),
+          user: user,
+          accessToken: 'token',
         );
 
         await tester.pumpWidget(
@@ -520,18 +547,21 @@ void main() {
       });
 
       testWidgets('enforces both role and group requirements', (tester) async {
+        final user = const UserProfile(
+          userId: 'user-123',
+          claims: {
+            'roles': ['user'], // Missing admin role
+            'groups': ['developers'],
+          },
+        );
         final authContext = AuthressContext(
           authState: AuthStateAuthenticated(
-            user: const UserProfile(
-              userId: 'user-123',
-              claims: {
-                'roles': ['user'], // Missing admin role
-                'groups': ['developers'],
-              },
-            ),
+            user: user,
             accessToken: 'token',
             expiresAt: DateTime.now().add(const Duration(hours: 1)),
           ),
+          user: user,
+          accessToken: 'token',
         );
 
         await tester.pumpWidget(
@@ -551,18 +581,21 @@ void main() {
       testWidgets('shows access denied when user fails group requirement', (
         tester,
       ) async {
+        final user = const UserProfile(
+          userId: 'user-123',
+          claims: {
+            'roles': ['admin'],
+            'groups': ['qa'], // Missing developers group
+          },
+        );
         final authContext = AuthressContext(
           authState: AuthStateAuthenticated(
-            user: const UserProfile(
-              userId: 'user-123',
-              claims: {
-                'roles': ['admin'],
-                'groups': ['qa'], // Missing developers group
-              },
-            ),
+            user: user,
             accessToken: 'token',
             expiresAt: DateTime.now().add(const Duration(hours: 1)),
           ),
+          user: user,
+          accessToken: 'token',
         );
 
         await tester.pumpWidget(
@@ -596,23 +629,10 @@ class TestAuthressProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: _InheritedAuthress(
+      home: InheritedAuthress(
         context: authContext,
         child: Scaffold(body: child),
       ),
     );
-  }
-}
-
-/// Test version of _InheritedAuthress that provides the same interface as the real one
-/// This must have the exact same name and signature as the private class in auth_provider.dart
-class _InheritedAuthress extends InheritedWidget {
-  final AuthressContext context;
-
-  const _InheritedAuthress({required this.context, required super.child});
-
-  @override
-  bool updateShouldNotify(_InheritedAuthress oldWidget) {
-    return context != oldWidget.context;
   }
 }

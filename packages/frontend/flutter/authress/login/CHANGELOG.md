@@ -30,3 +30,11 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Changed
 
 - Update docs
+
+## [0.0.4] 2026-01-10
+
+### Changed
+
+- Updated flutter SDK to 3.38.6
+- Updated depedencies
+- Fixed unit tests

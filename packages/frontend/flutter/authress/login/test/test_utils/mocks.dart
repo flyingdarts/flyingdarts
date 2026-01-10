@@ -134,9 +134,12 @@ class TestWidgetHelper {
 
 // Helper functions for setting up common mocks
 void setupMockTokenService(MockTokenService mockTokenService) {
+  // Track stored tokens for PKCE verifier flow
+  AuthStateAuthenticated? _storedState;
+
   when(
     () => mockTokenService.loadStoredTokens(),
-  ).thenAnswer((_) async => TestData.validAuthenticatedState);
+  ).thenAnswer((_) async => _storedState ?? TestData.validAuthenticatedState);
 
   when(
     () => mockTokenService.storeTokens(
@@ -145,15 +148,36 @@ void setupMockTokenService(MockTokenService mockTokenService) {
       userProfile: any(named: 'userProfile'),
       expiresAt: any(named: 'expiresAt'),
     ),
-  ).thenAnswer((_) async {});
+  ).thenAnswer((invocation) async {
+    final accessToken = invocation.namedArguments[#accessToken] as String;
+    final refreshToken = invocation.namedArguments[#refreshToken] as String?;
+    final userProfile =
+        invocation.namedArguments[#userProfile] as UserProfile;
+    final expiresAt = invocation.namedArguments[#expiresAt] as DateTime;
 
-  when(() => mockTokenService.clearTokens()).thenAnswer((_) async {});
+    _storedState = AuthStateAuthenticated(
+      user: userProfile,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+      expiresAt: expiresAt,
+    );
+  });
+
+  when(() => mockTokenService.clearTokens()).thenAnswer((_) async {
+    _storedState = null;
+  });
 
   when(() => mockTokenService.hasValidTokens()).thenAnswer((_) async => true);
 
   when(
     () => mockTokenService.parseJwtPayload(any()),
   ).thenReturn(TestData.userProfileResponse);
+
+  when(
+    () => mockTokenService.scheduleTokenRefresh(any(), any()),
+  ).thenReturn(null);
+
+  when(() => mockTokenService.dispose()).thenReturn(null);
 }
 
 void setupMockHttpService(MockHttpService mockHttpService) {
@@ -190,6 +214,8 @@ void setupMockHttpService(MockHttpService mockHttpService) {
       isSuccess: true,
     ),
   );
+
+  when(() => mockHttpService.dispose()).thenReturn(null);
 }
 
 void setupMockCryptoService(MockCryptoService mockCryptoService) {
@@ -212,4 +238,6 @@ void setupMockDeepLinkService(MockDeepLinkService mockDeepLinkService) {
   when(() => mockDeepLinkService.callbackUrl).thenReturn('flyingdarts://auth');
 
   when(() => mockDeepLinkService.cancelAuthFlow()).thenReturn(null);
+
+  when(() => mockDeepLinkService.dispose()).thenReturn(null);
 }

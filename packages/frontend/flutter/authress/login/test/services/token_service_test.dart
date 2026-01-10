@@ -327,10 +327,13 @@ void main() {
           return true;
         }
 
-        final expiresAt = DateTime.now().add(const Duration(seconds: 1));
+        // Token expires in 5 minutes + 1 second, so refresh will be scheduled in ~1 second
+        final expiresAt = DateTime.now().add(
+          const Duration(minutes: 5, seconds: 1),
+        );
         tokenService.scheduleTokenRefresh(expiresAt, mockRefresh);
 
-        // Wait for refresh to be called (should be scheduled 5 minutes before expiry, but we use 1 second for testing)
+        // Wait for refresh to be called (scheduled 5 minutes before expiry = ~1 second from now)
         await Future.delayed(const Duration(seconds: 2));
 
         expect(refreshCalled, isTrue);
@@ -378,15 +381,20 @@ void main() {
           return true;
         }
 
-        // Schedule first refresh
-        final firstExpiry = DateTime.now().add(const Duration(seconds: 2));
+        // Schedule first refresh: expires in 5 min + 3 sec (refresh in ~3 sec)
+        final firstExpiry = DateTime.now().add(
+          const Duration(minutes: 5, seconds: 3),
+        );
         tokenService.scheduleTokenRefresh(firstExpiry, firstRefresh);
 
-        // Schedule second refresh immediately, should cancel first
-        final secondExpiry = DateTime.now().add(const Duration(seconds: 1));
+        // Schedule second refresh: expires in 5 min + 1 sec (refresh in ~1 sec)
+        // This should cancel the first one
+        final secondExpiry = DateTime.now().add(
+          const Duration(minutes: 5, seconds: 1),
+        );
         tokenService.scheduleTokenRefresh(secondExpiry, secondRefresh);
 
-        await Future.delayed(const Duration(seconds: 3));
+        await Future.delayed(const Duration(seconds: 4));
 
         expect(firstRefreshCalled, isFalse);
         expect(secondRefreshCalled, isTrue);
