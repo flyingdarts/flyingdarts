@@ -43,7 +43,7 @@ class AuthressProvider extends StatefulWidget {
 
   /// Get the current AuthressContext from the widget tree
   static AuthressContext of(BuildContext context) {
-    final inherited = context.dependOnInheritedWidgetOfExactType<_InheritedAuthress>();
+    final inherited = context.dependOnInheritedWidgetOfExactType<InheritedAuthress>();
     assert(
       inherited != null,
       'ImprovedAuthressProvider not found in widget tree',
@@ -53,7 +53,7 @@ class AuthressProvider extends StatefulWidget {
 
   /// Get the AuthressContext without listening to changes
   static AuthressContext read(BuildContext context) {
-    final inherited = context.getInheritedWidgetOfExactType<_InheritedAuthress>();
+    final inherited = context.getInheritedWidgetOfExactType<InheritedAuthress>();
     assert(
       inherited != null,
       'ImprovedAuthressProvider not found in widget tree',
@@ -63,7 +63,7 @@ class AuthressProvider extends StatefulWidget {
 
   /// Check if ImprovedAuthressProvider exists in the widget tree
   static AuthressContext? maybeOf(BuildContext context) {
-    final inherited = context.dependOnInheritedWidgetOfExactType<_InheritedAuthress>();
+    final inherited = context.dependOnInheritedWidgetOfExactType<InheritedAuthress>();
     return inherited?.context;
   }
 
@@ -194,18 +194,19 @@ class _AuthressProviderState extends State<AuthressProvider> {
 
   @override
   Widget build(BuildContext context) {
-    return _InheritedAuthress(context: _context, child: widget.child);
+    return InheritedAuthress(context: _context, child: widget.child);
   }
 }
 
 /// InheritedWidget that provides AuthressContext to the widget tree
-class _InheritedAuthress extends InheritedWidget {
+/// Package-private to allow test access
+class InheritedAuthress extends InheritedWidget {
   final AuthressContext context;
 
-  const _InheritedAuthress({required this.context, required super.child});
+  const InheritedAuthress({required this.context, required super.child});
 
   @override
-  bool updateShouldNotify(_InheritedAuthress oldWidget) {
+  bool updateShouldNotify(InheritedAuthress oldWidget) {
     return context != oldWidget.context;
   }
 }

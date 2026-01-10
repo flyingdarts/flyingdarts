@@ -7,13 +7,18 @@ import '../models/deep_link_config.dart';
 /// Service for handling deep links with configurable schemes and timeouts
 class DeepLinkService {
   final DeepLinkConfig _config;
-  final AppLinks _appLinks = AppLinks();
+  final AppLinks _appLinks;
 
   StreamSubscription<Uri>? _linkSubscription;
   Completer<Map<String, String>?>? _authCompleter;
   Timer? _timeoutTimer;
 
-  DeepLinkService([this._config = const DeepLinkConfig()]);
+  /// Create a DeepLinkService with optional AppLinks injection for testing
+  /// If [appLinks] is not provided, creates a default AppLinks instance
+  DeepLinkService([
+    this._config = const DeepLinkConfig(),
+    AppLinks? appLinks,
+  ]) : _appLinks = appLinks ?? AppLinks();
 
   /// Initialize deep link handling
   Future<void> initialize() async {

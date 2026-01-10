@@ -112,12 +112,12 @@ void main() {
         expect(stats, isNull);
       });
 
-      test('calculates basic statistics correctly', () {
+      test('calculates basic statistics correctly', () async {
         // Record some operations with known timing
         for (int i = 0; i < 5; i++) {
           monitor.startTimer('test_op');
-          // Simulate different durations
-          Future.delayed(Duration(milliseconds: i + 1));
+          // Simulate different durations - await to actually measure time
+          await Future.delayed(Duration(milliseconds: (i + 1) * 10));
           monitor.stopTimer('test_op');
         }
 
