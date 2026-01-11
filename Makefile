@@ -7,7 +7,7 @@ restore:
 	dotnet restore && \
 	flutter pub get && \
 	cargo fetch && \
-	npm install  
+	npm install
 
 build:
 	dotnet build && \
@@ -19,6 +19,9 @@ build:
 run-flutter-app:
 	flutter run --flavor dev --target apps/frontend/flutter/flyingdarts_mobile/lib/main_dev.dart
 
+run-widgetbook:
+	cd widgetbook && flutter run
+
 upgrade-flutter-packages:
 	sh scripts/flutter/workspace/upgrade-flutter-packages.sh
 
@@ -27,9 +30,9 @@ clean-caches:
 	pod cache clean --all && \
 	dart pub cache clean
 
-clean: 
+clean:
 
-	sh scripts/clean-build-folders.sh 
+	sh scripts/clean-build-folders.sh
 
 ci:
 	make clean-caches && \

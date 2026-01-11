@@ -19,8 +19,6 @@ export 'src/presentation/bloc/speech_bloc.dart';
 export 'src/presentation/pages/speech_page.dart';
 export 'src/presentation/widgets/speech_command_gesture_detector.dart';
 export 'src/presentation/widgets/speech_recognition_widget.dart';
-// Widgetbook exports
-export 'src/widgetbook.generator.dart';
 
 // @microPackageInit => short const
 @InjectableInit.microPackage()

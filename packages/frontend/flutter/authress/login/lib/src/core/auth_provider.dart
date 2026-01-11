@@ -46,7 +46,7 @@ class AuthressProvider extends StatefulWidget {
     final inherited = context.dependOnInheritedWidgetOfExactType<InheritedAuthress>();
     assert(
       inherited != null,
-      'ImprovedAuthressProvider not found in widget tree',
+      'AuthressProvider not found in widget tree',
     );
     return inherited!.context;
   }
@@ -56,7 +56,7 @@ class AuthressProvider extends StatefulWidget {
     final inherited = context.getInheritedWidgetOfExactType<InheritedAuthress>();
     assert(
       inherited != null,
-      'ImprovedAuthressProvider not found in widget tree',
+      'AuthressProvider not found in widget tree',
     );
     return inherited!.context;
   }
@@ -203,7 +203,7 @@ class _AuthressProviderState extends State<AuthressProvider> {
 class InheritedAuthress extends InheritedWidget {
   final AuthressContext context;
 
-  const InheritedAuthress({required this.context, required super.child});
+  const InheritedAuthress({super.key, required this.context, required super.child});
 
   @override
   bool updateShouldNotify(InheritedAuthress oldWidget) {

@@ -28,7 +28,7 @@ dependencies:
   ui: ^0.0.1
   websocket: ^0.0.1
 
-  flyingdarts_authress_login: ^0.0.2-dev.3
+  flyingdarts_authress_login: ^0.0.4
 
   # External dependencies
   bloc: ^9.2.0
