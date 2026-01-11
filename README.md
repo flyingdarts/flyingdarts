@@ -39,7 +39,7 @@ The platform is open source and built for the community. Anyone can suggest feat
 ## TODOs
 
 - Figure out proper usage of Beachball for versioning/releasing and integrate it into the CI/CD pipeline.
-- Set up consistent linting across projects/frameworks/languages (e.g., Angular/TypeScript, Flutter/Dart, .NET/C#, Rust).
+- Set up linting across projects/frameworks/languages (e.g., Angular/TypeScript, Flutter/Dart, .NET/C#, Rust).
 - Set up CI to run tests across all projects/frameworks/languages (Angular/TypeScript, Flutter/Dart, .NET/C#, Rust).
 - Publish the Flutter app to the app stores (requires developer accounts and release process setup).
 - iOS publishing: Create Xcode schemes/build configurations for Flutter `--flavor` builds (e.g., `dev`, `acc` (staging), `prod`) and configure Fastlane lanes to build/sign/distribute per flavor:
