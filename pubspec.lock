@@ -477,10 +477,9 @@ packages:
   flyingdarts_authress_login:
     dependency: transitive
     description:
-      name: flyingdarts_authress_login
-      sha256: af579499fe7814d44bd30eda87d588b456e1f57057f90af5af30f97d995b93d8
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/frontend/flutter/authress/login"
+      relative: true
+    source: path
     version: "0.0.4"
   frontend_server_client:
     dependency: transitive

@@ -11,7 +11,8 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  flyingdarts_authress_login: ^0.0.2-dev.3
+  flyingdarts_authress_login:
+    path: ../../authress/login
   rxdart: ^0.28.0
   web_socket_channel: ^3.0.3
   injectable: ^2.7.1+4

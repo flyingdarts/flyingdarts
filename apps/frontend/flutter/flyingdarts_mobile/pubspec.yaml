@@ -28,7 +28,8 @@ dependencies:
   ui: ^0.0.1
   websocket: ^0.0.1
 
-  flyingdarts_authress_login: ^0.0.4
+  flyingdarts_authress_login:
+    path: ../../../../packages/frontend/flutter/authress/login
 
   # External dependencies
   bloc: ^9.2.0

@@ -13,18 +13,11 @@ dependencies:
     sdk: flutter
 
   api_sdk: ^0.0.1
-  flyingdarts_authress_login: ^0.0.2-dev.3
+  flyingdarts_authress_login:
+    path: ../../authress/login
   ui: ^0.0.1
   internationalization: ^0.0.1
   websocket: ^0.0.1
-  app_config_core: ^0.0.1
-  app_config_secrets: ^0.0.1
-
-  flutter_bloc: ^9.1.1
-  dio: ^5.9.0
-  get_it: ^9.2.0
-  json_annotation: ^4.9.0
-  injectable: ^2.7.1+4
 dev_dependencies:
   flutter_test:
     sdk: flutter
