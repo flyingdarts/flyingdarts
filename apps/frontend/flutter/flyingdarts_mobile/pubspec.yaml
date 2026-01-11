@@ -1,4 +1,4 @@
-name: flyingdarts_mobile
+﻿name: flyingdarts_mobile
 description: A flutter app to send score to Flyingdarts.net
 publish_to: none
 
@@ -44,8 +44,6 @@ dependencies:
   lottie: ^3.3.2
   provider: ^6.1.5+1
   speech_to_text: ^7.3.0
-  widgetbook: ^3.20.2
-  widgetbook_annotation: ^3.9.0
 
 dev_dependencies:
   flutter_test:
@@ -58,17 +56,15 @@ dev_dependencies:
   bloc_test: ^10.0.0
   build_runner: ^2.10.4
   equatable: ^2.0.8
-  flutter_gherkin: 2.0.0
   flutter_inappwebview: ^6.1.5
   flutter_lints: ^6.0.0
-  gherkin: ^3.1.0
   glob: ^2.1.3
-  injectable_generator: ^2.12.0
+  injectable_generator: ^2.8.1
   intl: ^0.20.2
   mockito: ^5.6.1
   rxdart: ^0.28.0
-  test: ^1.29.0
-  widgetbook_generator: ^3.20.1
+  test: ^1.26.0
+  analyzer: ^8.0.0 # TODO: Remove this dependency when widgetbook_generator is updated to 4.0.0
 
 flutter:
   uses-material-design: true

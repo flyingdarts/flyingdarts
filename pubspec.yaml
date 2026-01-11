@@ -25,3 +25,4 @@ workspace:
   - packages/frontend/flutter/shared/config/app_config_prefs
   - packages/frontend/flutter/shared/config/app_config_secrets
   - packages/frontend/flutter/api/sdk
+  - widgetbook

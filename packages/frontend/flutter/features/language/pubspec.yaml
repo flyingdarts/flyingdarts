@@ -1,4 +1,4 @@
-name: language
+﻿name: language
 description: "A package containg the language feature."
 version: 0.0.1
 publish_to: none
@@ -21,8 +21,6 @@ dependencies:
   app_config_core: ^0.0.1
   app_config_prefs: ^0.0.1
 
-  widgetbook: ^3.20.2
-  widgetbook_annotation: ^3.9.0
   injectable: ^2.7.1+4
 
 dev_dependencies:
@@ -31,7 +29,6 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
   build_runner: ^2.10.4
-  widgetbook_generator: ^3.20.1
-  injectable_generator: ^2.12.0
+  injectable_generator: ^2.8.1
 
 flutter:
