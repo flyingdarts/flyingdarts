@@ -9,7 +9,7 @@ on:
 jobs:
   # Test jobs - run before builds
   test-dotnet:
-    uses: flyingdarts/flyingdarts/.github/workflows/backend/dotnet/test-dotnet.yml
+    uses: flyingdarts/flyingdarts/.github/workflows/backend/dotnet/test-dotnet.yml@main
     with:
       solution-file: "flyingdarts.sln"
       project-name: "flyingdarts"
@@ -17,7 +17,7 @@ jobs:
       node-version: "22"
 
   test-flutter:
-    uses: flyingdarts/flyingdarts/.github/workflows/frontend/flutter/test-flutter.yml
+    uses: flyingdarts/flyingdarts/.github/workflows/frontend/flutter/test-flutter.yml@main
     with:
       project-name: "flyingdarts_mobile"
       project-directory: "apps/frontend/flutter/flyingdarts_mobile"
@@ -25,14 +25,14 @@ jobs:
       node-version: "22"
 
   test-rust:
-    uses: flyingdarts/flyingdarts/.github/workflows/backend/rust/test-rust.yml
+    uses: flyingdarts/flyingdarts/.github/workflows/backend/rust/test-rust.yml@main
     with:
       project-name: "flyingdarts-authorizer"
       project-directory: "apps/backend/rust/authorizer"
       node-version: "22"
 
   test-angular:
-    uses: flyingdarts/flyingdarts/.github/workflows/frontend/angular/test-angular.yml
+    uses: flyingdarts/flyingdarts/.github/workflows/frontend/angular/test-angular.yml@main
     with:
       project-name: "fd-app"
       project-directory: "apps/frontend/angular/fd-app"
@@ -43,23 +43,23 @@ jobs:
   build-deploy-dotnet-dev:
     name: Build .NET
     needs: [test-dotnet]
-    uses: flyingdarts/flyingdarts/.github/workflows/backend/dotnet/main_dotnet_dev.yml
+    uses: flyingdarts/flyingdarts/.github/workflows/backend/dotnet/main_dotnet_dev.yml@main
     secrets: inherit
 
   build-flutter-dev:
     name: Build Flutter
     needs: [test-flutter]
-    uses: flyingdarts/flyingdarts/.github/workflows/frontend/flutter/main_flutter_dev.yml
+    uses: flyingdarts/flyingdarts/.github/workflows/frontend/flutter/main_flutter_dev.yml@main
     secrets: inherit
 
   build-rust-dev:
     name: Build Rust
     needs: [test-rust]
-    uses: flyingdarts/flyingdarts/.github/workflows/backend/rust/main_rust_dev.yml
+    uses: flyingdarts/flyingdarts/.github/workflows/backend/rust/main_rust_dev.yml@main
     secrets: inherit
 
   build-angular:
     name: Build Angular
     needs: [test-angular] # Angular might depend on .NET backend
-    uses: flyingdarts/flyingdarts/.github/workflows/frontend/angular/ci-angular-app-development.yml
+    uses: flyingdarts/flyingdarts/.github/workflows/frontend/angular/ci-angular-app-development.yml@main
     secrets: inherit
