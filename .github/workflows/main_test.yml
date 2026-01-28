@@ -1,0 +1,16 @@
+name: Main Test Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      test-message:
+        description: "Message to pass to the nested test"
+        required: true
+        type: string
+        default: "Test message from main workflow"
+
+jobs:
+  nested-test:
+    uses: flyingdarts/flyingdarts/.github/workflows/test/nested-test.yml@main
+    with:
+      message: ${{ inputs.test-message }}

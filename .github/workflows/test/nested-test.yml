@@ -1,0 +1,24 @@
+name: Nested Test - Hello World
+
+on:
+  workflow_call:
+    inputs:
+      message:
+        description: "Input message string to log"
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Input message string to log"
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello World Log
+        run: |
+          echo "Hello World!"
+          echo "Input message: ${{ inputs.message }}"
