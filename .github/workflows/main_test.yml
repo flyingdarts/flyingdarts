@@ -1,4 +1,4 @@
-name: Main Test Workflow
+name: 1. Main Test Workflow
 
 on:
   workflow_dispatch:
