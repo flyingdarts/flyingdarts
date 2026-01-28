@@ -11,6 +11,6 @@ on:
 
 jobs:
   nested-test:
-    uses: flyingdarts/flyingdarts/.github/workflows/test/nested-test.yml@main
+    uses: flyingdarts/flyingdarts.github/workflows/test/nested-test.yml@main
     with:
       message: ${{ inputs.test-message }}
