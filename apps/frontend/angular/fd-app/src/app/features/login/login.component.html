@@ -1,36 +1,57 @@
 <div
-  class="card shadow-sm"
-  style="transition: transform 0.2s; cursor: pointer"
+  class="d-flex w-100 justify-content-center align-items-center p-3"
 >
-  <div class="card-body">
-    <h5 class="card-title">Login Form</h5>
+  <div class="card shadow-sm" style="max-width: 500px; width: 100%">
+    <div class="card-body p-4">
+      <h4 class="card-title mb-4">Login</h4>
 
-    <form
-      [formGroup]="loginForm"
-      (ngSubmit)="onSubmit()"
-    >
-      <div class="form-check mb-3">
-        <input
-          type="checkbox"
-          id="acceptTerms"
-          class="form-check-input"
-          formControlName="acceptTerms"
-        />
-        <label
-          for="acceptTerms"
-          class="form-check-label"
-        >
-          I accept and surrender
-        </label>
+      <div class="mb-4">
+        <p class="mb-3">
+          You will be redirected to Authress to create your account or sign in. Authress supports the following authentication methods:
+        </p>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="badge bg-primary">Google</span>
+          <span class="badge bg-primary">Microsoft</span>
+          <span class="badge bg-primary">Authress</span>
+          <span class="badge bg-primary">GitHub</span>
+        </div>
       </div>
 
-      <button
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="loginForm.invalid"
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
       >
-        Login
-      </button>
-    </form>
+        <div class="form-check mb-4">
+          <input
+            type="checkbox"
+            id="acceptTerms"
+            class="form-check-input"
+            formControlName="acceptTerms"
+          />
+          <label
+            for="acceptTerms"
+            class="form-check-label"
+          >
+            I accept the
+            <a
+              routerLink="/terms"
+              class="text-decoration-none"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Terms of Service
+            </a>
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary w-100"
+          [disabled]="loginForm.invalid"
+        >
+          Continue to Login
+        </button>
+      </form>
+    </div>
   </div>
 </div>
