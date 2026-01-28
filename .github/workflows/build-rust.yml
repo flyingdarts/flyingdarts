@@ -1,4 +1,4 @@
-name: Build Flutter App
+name: Build Rust App
 
 on:
   workflow_call:
@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       project-directory:
-        description: "Directory of the Flutter project to build"
+        description: "Directory of the Rust project to build"
         required: true
         type: string
       node-version:

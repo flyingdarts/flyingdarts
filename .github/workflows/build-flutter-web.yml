@@ -1,4 +1,4 @@
-name: Build Flutter App
+name: Build Flutter Web App
 
 on:
   workflow_call:
@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       project-directory:
-        description: "Directory of the Flutter project to build"
+        description: "Directory of the Flutter Web project to build"
         required: true
         type: string
       flutter-version:

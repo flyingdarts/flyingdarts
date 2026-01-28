@@ -1,4 +1,4 @@
-name: Build Angular App
+name: Build React App
 
 on:
   workflow_call:
@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       project-directory:
-        description: "Directory of the Angular project to build"
+        description: "Directory of the React project to build"
         required: true
         type: string
       node-version:
