@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GameContainerComponent } from './features/game/container/game.container';
 import { LoginComponent } from './features/login/login.component';
+import { TermsComponent } from './features/terms/terms.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SessionUserResolver } from './resolvers/user-profile.resolver';
 
@@ -9,6 +10,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'terms',
+    component: TermsComponent,
   },
   {
     path: '',
