@@ -9,5 +9,5 @@ on:
 jobs:
   build-angular:
     name: Build Angular
-    uses: ./.github/workflows/main_angular_production.yml
+    uses: ./.github/workflows/ci-angular-app-production.yml
     secrets: inherit

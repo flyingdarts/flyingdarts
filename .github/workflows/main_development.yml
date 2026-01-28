@@ -61,5 +61,5 @@ jobs:
   build-angular:
     name: Build Angular
     needs: [test-angular] # Angular might depend on .NET backend
-    uses: ./.github/workflows/main_angular_dev.yml
+    uses: ./.github/workflows/ci-angular-app-development.yml
     secrets: inherit
