@@ -41,7 +41,7 @@
     "@flyingdarts/config": "*"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.0.1",
+    "@angular-devkit/build-angular": "^21.2.0",
     "@angular/cli": "^18.0.1",
     "@angular/compiler-cli": "^18.0.0",
     "@eslint/compat": "^1.2.6",
