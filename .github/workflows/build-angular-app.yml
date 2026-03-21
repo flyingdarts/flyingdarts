@@ -45,10 +45,6 @@ jobs:
           name: pruned-${{ inputs.project-name }}
           path: ./pruned
 
-      # Turbo prune does not copy the angular.json file to the dist directory, so we need to copy it manually
-      - name: Check for angular.json file recursively in the dist directory
-        run: cp angular.json ./pruned/full
-
       # Restore dependencies
       - name: Restore dependencies
         run: npm install

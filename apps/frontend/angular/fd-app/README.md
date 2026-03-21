@@ -389,3 +389,6 @@ Use Angular DevTools for debugging:
 ## License
 
 Part of the Flyingdarts Turbo monorepo. See root LICENSE file for details.
+
+## Trigger pipeline
+|
