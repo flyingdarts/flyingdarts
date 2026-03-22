@@ -23,6 +23,9 @@
     "typescript": "~5.4.5",
     "@angular-devkit/build-angular": "18.0.1"
   },
+  "overrides": {
+    "@authress/login": "2.5.380"
+  },
   "packageManager": "npm@10.9.2",
   "scripts": {
     "clean:flutter:generated": "turbo run clean:generated --filter=./packages/frontend/flutter/**/*",
