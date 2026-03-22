@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GameContainerComponent } from './features/game/container/game.container';
 import { LoginComponent } from './features/login/login.component';
 import { TermsComponent } from './features/terms/terms.component';
+import { AuthGuard } from './guards/auth.guard';
 import { SessionUserResolver } from './resolvers/user-profile.resolver';
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
   },
   {
     path: '',
+    canActivate: [AuthGuard],
     resolve: {
       sessionUserResolved: SessionUserResolver,
     },
