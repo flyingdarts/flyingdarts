@@ -1,7 +1,24 @@
-.card-custom {
-  background: #5a54e3;
-  color: white;
-  border-radius: 1.5rem;
+#friendsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  flex: 1;
+  min-height: 0;
+}
+
+.fd-surface-card {
+  background: var(--fd-surface);
+  color: var(--fd-text);
+  border: 1px solid rgba(123, 79, 255, 0.25);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow:
+    0 0 0 1px rgba(0, 245, 255, 0.04),
+    0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+.fd-surface-card--wide {
   width: 90vw;
   max-width: 1200px;
   height: 80vh;
@@ -9,22 +26,15 @@
   overflow-y: auto;
 }
 
-#friendsContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
 @media (max-width: 768px) {
-  .card-custom {
+  .fd-surface-card--wide {
     width: 95vw;
     height: 85vh;
   }
 }
 
 @media (max-width: 480px) {
-  .card-custom {
+  .fd-surface-card--wide {
     width: 98vw;
     height: 90vh;
   }

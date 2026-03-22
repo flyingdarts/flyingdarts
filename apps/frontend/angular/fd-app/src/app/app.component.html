@@ -1,34 +1,26 @@
 @if (appStateLoading$ | async) {
-  <div
-    class="container-fluid d-flex vw-100 vh-100 justify-content-center align-items-center p-5"
-    [ngStyle]="{
-      'background-image':
-        (themeMode$ | async) === 'light'
-          ? 'url(\'./../assets/light-mode-background-arrow.svg\')'
-          : 'url(\'./../assets/dark-mode-background-arrow.svg\')',
-      'background-color': (themeMode$ | async) === 'light' ? '#dddee8' : '#252d49',
-      'background-size': 'cover',
-      'background-position': 'center',
-    }"
-  >
-    <ng-lottie [options]="lottieOptions"></ng-lottie>
+  <div class="fd-app-shell">
+    <div class="fd-neon-orbs" aria-hidden="true">
+      <div class="fd-orb fd-orb1"></div>
+      <div class="fd-orb fd-orb2"></div>
+      <div class="fd-orb fd-orb3"></div>
+      <div class="fd-orb fd-orb4"></div>
+    </div>
+    <div class="fd-app-loading">
+      <ng-lottie [options]="lottieOptions"></ng-lottie>
+    </div>
   </div>
 } @else {
-  <div
-    class="container-fluid vw-100 vh-100 d-flex flex-column"
-    [ngStyle]="{
-      'background-image':
-        (themeMode$ | async) === 'light'
-          ? 'url(\'./../assets/light-mode-background-arrow.svg\')'
-          : 'url(\'./../assets/dark-mode-background-arrow.svg\')',
-      'background-color': (themeMode$ | async) === 'light' ? '#dddee8' : '#252d49',
-      'background-size': 'cover',
-      'background-position': 'center',
-    }"
-  >
-    <app-navbar></app-navbar>
-    <div class="d-flex align-items-center justify-content-center h-100">
-      <div class="w-100 h-100">
+  <div class="fd-app-shell">
+    <div class="fd-neon-orbs" aria-hidden="true">
+      <div class="fd-orb fd-orb1"></div>
+      <div class="fd-orb fd-orb2"></div>
+      <div class="fd-orb fd-orb3"></div>
+      <div class="fd-orb fd-orb4"></div>
+    </div>
+    <div class="fd-app-shell__content">
+      <app-navbar></app-navbar>
+      <div class="fd-app-shell__outlet">
         <router-outlet />
       </div>
     </div>

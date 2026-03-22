@@ -1,53 +1,31 @@
-<div class="card-header-icons d-flex justify-content-between">
-  <i
-    class="bi bi-arrow-left"
-    (click)="onBack()"
-  ></i>
+<div class="fd-flex fd-justify-between fd-settings-header">
+  <i class="bi bi-arrow-left fd-settings-back" (click)="onBack()"></i>
 </div>
 
-<h2 class="fw-bold mt-5">configure<br />game<br /></h2>
+<h2 class="fd-fw-bold fd-mt-5 fd-settings-title">
+  configure<br />game<br />
+</h2>
 
-<div class="d-flex">
-  <p class="me-2">sets</p>
-  <button
-    id="setMinus"
-    class="circle-button"
-    (click)="action('decrease', 'sets')"
-  >
+<div class="fd-flex fd-items-center">
+  <p class="fd-me-2">sets</p>
+  <button id="setMinus" type="button" class="circle-button" (click)="action('decrease', 'sets')">
     <i class="bi bi-dash"></i>
   </button>
-  <p id="setCount" class="mx-2">{{ preferredX01Sets | async }}</p>
-  <button
-    id="setPlus"
-    class="circle-button"
-    (click)="action('increase', 'sets')"
-  >
+  <p id="setCount" class="fd-mx-2">{{ preferredX01Sets | async }}</p>
+  <button id="setPlus" type="button" class="circle-button" (click)="action('increase', 'sets')">
     <i class="bi bi-plus"></i>
   </button>
 </div>
-<div class="d-flex mb-5">
-  <p class="me-2 mb-0">legs</p>
-  <button
-    id="legMinus"
-    class="circle-button"
-    (click)="action('decrease', 'legs')"
-  >
+<div class="fd-flex fd-mb-5 fd-items-center">
+  <p class="fd-me-2 fd-mb-0">legs</p>
+  <button id="legMinus" type="button" class="circle-button" (click)="action('decrease', 'legs')">
     <i class="bi bi-dash"></i>
   </button>
-  <p id="legCount" class="mx-2 mb-0">{{ preferredX01Legs | async }}</p>
-  <button
-    id="legPlus"
-    class="circle-button"
-    (click)="action('increase', 'legs')"
-  >
+  <p id="legCount" class="fd-mx-2 fd-mb-0">{{ preferredX01Legs | async }}</p>
+  <button id="legPlus" type="button" class="circle-button" (click)="action('increase', 'legs')">
     <i class="bi bi-plus"></i>
   </button>
 </div>
-<div class="d-inline-flex">
-  <button
-    class="btn btn-primary mt-2"
-    (click)="onBack()"
-  >
-    save
-  </button>
+<div class="fd-flex">
+  <button type="button" class="fd-btn fd-btn-primary fd-mt-2" (click)="onBack()">save</button>
 </div>

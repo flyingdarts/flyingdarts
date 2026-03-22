@@ -11,6 +11,7 @@ import { AppStateActions } from 'src/app/state/app';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;

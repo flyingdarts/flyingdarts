@@ -1,35 +1,21 @@
-<div class="w-100">
-  <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom border-white">
-    <button
-      class="btn btn-outline-light"
-      (click)="goBack()"
-    >
+<div class="fd-w-100">
+  <div class="fd-flex fd-items-center fd-gap-3 fd-mb-4 fd-divider">
+    <button type="button" class="fd-btn fd-btn-ghost" (click)="goBack()">
       <i class="bi bi-arrow-left"></i> Back
     </button>
-    <h2 class="m-0 text-white fw-bold">Add Friend</h2>
+    <h2 class="fd-m-0 fd-text-white fd-fw-bold">Add Friend</h2>
   </div>
 
-  <div class="mb-4">
-    <form
-      [formGroup]="searchForm"
-      (ngSubmit)="onSearch()"
-    >
-      <div
-        class="input-group"
-        style="max-width: 500px"
-      >
+  <div class="fd-mb-4">
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <div class="fd-search-row">
         <input
           type="text"
-          class="form-control"
+          class="fd-form-control fd-search-input"
           placeholder="Search for users by username or email address..."
           formControlName="searchQuery"
         />
-        <button
-          class="btn"
-          style="background: #ff5e78; color: white; border: none"
-          type="submit"
-          [disabled]="searchForm.invalid"
-        >
+        <button type="submit" class="fd-btn fd-btn-primary" [disabled]="searchForm.invalid">
           <i class="bi bi-search"></i> Search
         </button>
       </div>
@@ -37,59 +23,37 @@
   </div>
 
   <div *ngIf="searchResults.length > 0">
-    <h3 class="mb-3 text-white fw-bold">Search Results</h3>
-    <div class="row g-4">
-      <div
-        *ngFor="let user of searchResults"
-        class="col-12 col-md-6 col-lg-6"
-      >
-        <div class="d-flex align-items-center p-4 bg-white bg-opacity-10 rounded border border-white border-opacity-25 transition-all">
-          <div class="me-3">
+    <h3 class="fd-mb-3 fd-text-white fd-fw-bold">Search Results</h3>
+    <div class="fd-friends-grid">
+      <div *ngFor="let user of searchResults" class="fd-friends-grid__cell">
+        <div class="fd-card-row transition-all">
+          <div class="fd-me-3">
             @if (user.Picture) {
-              <img
-                src="{{ user.Picture }}"
-                alt="User Avatar"
-                class="rounded-circle"
-                style="width: 3rem; height: 3rem"
-              />
+              <img src="{{ user.Picture }}" alt="" class="fd-rounded-circle fd-friend-avatar" />
             } @else {
-              <i
-                class="bi bi-person-circle text-white"
-                style="font-size: 3rem"
-              ></i>
+              <i class="bi bi-person-circle fd-text-white fd-friend-avatar-icon"></i>
             }
           </div>
-          <div class="flex-grow-1">
-            <h4 class="m-0 mb-1 text-white fw-bold">{{ user.UserName }}</h4>
-            <p
-              class="m-0 text-white"
-              style="font-size: 0.8rem"
-            >
-              {{ user.Country }}
-            </p>
+          <div class="fd-flex-1">
+            <h4 class="fd-m-0 fd-mb-1 fd-text-white fd-fw-bold">{{ user.UserName }}</h4>
+            <p class="fd-m-0 fd-text-white" style="font-size: 0.8rem">{{ user.Country }}</p>
           </div>
-          <div class="d-flex flex-column align-items-center gap-2">
+          <div class="fd-flex fd-flex-col fd-items-center fd-gap-2">
             <div *ngIf="user.IsAlreadyFriend">
-              <span class="badge bg-white text-primary">Already Friends</span>
+              <span class="fd-badge fd-badge-light">Already Friends</span>
             </div>
             <div *ngIf="user.HasPendingRequest">
-              <span class="badge bg-white text-primary">Request Pending</span>
+              <span class="fd-badge fd-badge-light">Request Pending</span>
             </div>
             <div *ngIf="!user.IsAlreadyFriend && !user.HasPendingRequest">
               <button
-                class="btn btn-sm"
-                style="background: #ff5e78; color: white; border: none"
+                type="button"
+                class="fd-btn fd-btn-primary fd-btn-sm"
                 (click)="sendFriendRequest(user)"
                 [disabled]="sendingRequest === user.UserId"
               >
-                <span
-                  *ngIf="sendingRequest === user.UserId"
-                  class="spinner-border spinner-border-sm me-1"
-                ></span>
-                <i
-                  *ngIf="sendingRequest !== user.UserId"
-                  class="bi bi-person-plus"
-                ></i>
+                <span *ngIf="sendingRequest === user.UserId" class="fd-spinner fd-spinner-sm fd-me-2"></span>
+                <i *ngIf="sendingRequest !== user.UserId" class="bi bi-person-plus"></i>
                 {{ sendingRequest === user.UserId ? 'Sending...' : 'Add Friend' }}
               </button>
             </div>
@@ -99,28 +63,20 @@
     </div>
   </div>
 
-  <div
-    class="text-center py-5"
-    *ngIf="hasSearched && searchResults.length === 0"
-  >
+  <div class="fd-text-center fd-py-5" *ngIf="hasSearched && searchResults.length === 0">
     <div>
-      <i class="bi bi-search display-1 text-white mb-4"></i>
-      <h3 class="text-white mb-2 fw-bold">No users found</h3>
-      <p class="text-white">Try searching with a different identifier.</p>
+      <i class="bi bi-search fd-display-1 fd-text-white fd-mb-4"></i>
+      <h3 class="fd-text-white fd-mb-2 fd-fw-bold">No users found</h3>
+      <p class="fd-text-white">Try searching with a different identifier.</p>
     </div>
   </div>
 
-  <div
-    class="bg-white bg-opacity-10 rounded p-4 mt-4 border border-white border-opacity-25"
-    *ngIf="!hasSearched"
-  >
-    <div>
-      <h3 class="text-white mb-3 fw-bold">Search Tips</h3>
-      <ul class="m-0 ps-4">
-        <li class="text-white mb-2">Search by username or email address (case-insensitive)</li>
-        <li class="text-white mb-2">Make sure the user has an account on Flyingdarts</li>
-        <li class="text-white mb-2">You can only add users who are not already your friends</li>
-      </ul>
-    </div>
+  <div class="fd-tip-card fd-mt-4" *ngIf="!hasSearched">
+    <h3 class="fd-text-white fd-mb-3 fd-fw-bold">Search Tips</h3>
+    <ul class="fd-m-0 fd-tip-list">
+      <li class="fd-text-white fd-mb-2">Search by username or email address (case-insensitive)</li>
+      <li class="fd-text-white fd-mb-2">Make sure the user has an account on Flyingdarts</li>
+      <li class="fd-text-white fd-mb-2">You can only add users who are not already your friends</li>
+    </ul>
   </div>
 </div>

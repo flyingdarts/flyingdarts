@@ -12,6 +12,7 @@ import { FriendDto } from '../../../dtos/friend.dto';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './friends-list.component.html',
+  styleUrl: './friends-list.component.scss',
 })
 export class FriendsListComponent {
   friends$: Observable<FriendDto[]>;

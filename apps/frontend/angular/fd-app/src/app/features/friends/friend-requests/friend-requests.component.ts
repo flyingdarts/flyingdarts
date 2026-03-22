@@ -11,6 +11,7 @@ import { FriendsService } from '../../../services/friends.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './friend-requests.component.html',
+  styleUrl: './friend-requests.component.scss',
 })
 export class FriendRequestsComponent {
   friendRequests$: Observable<FriendRequestsDto>;

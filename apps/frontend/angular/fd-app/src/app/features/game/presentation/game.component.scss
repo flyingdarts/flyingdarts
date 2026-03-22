@@ -1,29 +1,73 @@
-// Mobile container for full height
+#gameContainer {
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.fd-game-row {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+.fd-game-col-score {
+  flex: 0 0 41.666%;
+  max-width: 41.666%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (min-width: 992px) {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+  }
+}
+
+.fd-game-col-meet {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.fd-game-stack {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fd-game-grow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.fd-game-grow-block {
+  flex: 1;
+  min-height: 0;
+}
+
 .mobile-container {
   height: -webkit-fill-available !important;
 }
 
-// Responsive adjustments
 @media (max-width: 767px) {
-  // Mobile specific styles
-  .flex-grow-1 {
-    min-height: 0; // Allow flex items to shrink
+  .fd-game-grow,
+  .fd-game-grow-block {
+    min-height: 0;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  // Tablet specific styles
-  .flex-grow-1 {
-    min-height: 0; // Allow flex items to shrink
+  .fd-game-grow,
+  .fd-game-grow-block {
+    min-height: 0;
   }
-}
-
-// Ensure proper height handling on all devices
-.h-100 {
-  height: 100% !important;
-}
-
-// Smooth transitions for layout changes
-.flex-grow-1 {
-  transition: all 0.3s ease;
 }

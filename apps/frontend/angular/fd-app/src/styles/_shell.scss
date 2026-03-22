@@ -1,0 +1,128 @@
+body {
+  margin: 0;
+  font-family: "Outfit", system-ui, sans-serif;
+  background: var(--fd-bg);
+  color: var(--fd-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
+.fd-app-shell {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--fd-bg);
+  color: var(--fd-text);
+  overflow-x: hidden;
+}
+
+.fd-neon-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.fd-neon-orbs .fd-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.16;
+  animation: fdOrbFloat 10s ease-in-out infinite;
+}
+
+.fd-neon-orbs .fd-orb1 {
+  width: 500px;
+  height: 500px;
+  background: var(--fd-accent);
+  top: -100px;
+  left: -100px;
+}
+
+.fd-neon-orbs .fd-orb2 {
+  width: 600px;
+  height: 600px;
+  background: var(--fd-accent2);
+  top: 20%;
+  right: -150px;
+  animation-delay: -3s;
+  opacity: 0.12;
+}
+
+.fd-neon-orbs .fd-orb3 {
+  width: 400px;
+  height: 400px;
+  background: var(--fd-neon-cyan);
+  bottom: 10%;
+  left: 20%;
+  animation-delay: -6s;
+  opacity: 0.09;
+}
+
+.fd-neon-orbs .fd-orb4 {
+  width: 300px;
+  height: 300px;
+  background: var(--fd-beta);
+  bottom: -80px;
+  right: 30%;
+  animation-delay: -4s;
+  opacity: 0.1;
+}
+
+@keyframes fdOrbFloat {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+  66% {
+    transform: translate(-20px, 30px) scale(0.95);
+  }
+}
+
+.fd-app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+}
+
+.fd-app-shell__content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fd-app-shell__outlet {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+}
+
+.fd-app-loading {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+}

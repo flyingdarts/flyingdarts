@@ -18,11 +18,12 @@
   >
     <div class="debug-header">
       <div>
-        <h5 class="mb-0">Debug Information</h5>
+        <h5 class="fd-mb-0">Debug Information</h5>
         <small>GameId - {{ gameId }} | User id - {{ userId$ | async }}</small>
       </div>
       <button
-        class="btn-close"
+        type="button"
+        class="fd-debug-close"
         (click)="toggleDebug()"
       >
         <i class="bi bi-x-lg"></i>
@@ -31,40 +32,41 @@
 
     <div class="debug-body">
       <div class="mb-3">
-        <div class="row">
-          <div class="col-6">
+        <div class="fd-debug-row">
+          <div class="fd-debug-col-6">
             <h6>Game State</h6>
             <p class="mb-1">Next player: {{ nextPlayer$ | async }}</p>
           </div>
-          <div class="col-6">
+          <div class="fd-debug-col-6">
             <h6>Should enable / show my controls</h6>
             <p class="mb-1">Enable controls: {{ enableControls$ | async }}</p>
           </div>
         </div>
       </div>
-      <div class="mb-3">
-        <div class="row mb-3">
-          <div class="col-6">
+      <div class="fd-mb-3">
+        <div class="fd-debug-row fd-mb-3">
+          <div class="fd-debug-col-6">
             <button
+              type="button"
               [disabled]="!(enableControls$ | async)"
-              class="btn btn-primary"
+              class="fd-btn fd-btn-primary"
               (click)="logRandomNumber()"
             >
               Log Random Number (30-170)
             </button>
           </div>
-          <div class="col-6">
+          <div class="fd-debug-col-6">
             Remaining score
             <td>{{ remainingScore$ | async }}</td>
           </div>
         </div>
-        <div class="row mb-3">
-          <div class="col-12">
+        <div class="fd-debug-row fd-mb-3">
+          <div class="fd-debug-col-12">
             <h6>Raw WebSocket Messages (Last 5)</h6>
-            <div class="card">
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-sm">
+            <div class="fd-debug-card">
+              <div class="fd-debug-card-body">
+                <div class="fd-debug-table-wrap">
+                  <table class="fd-debug-table">
                     <thead>
                       <tr>
                         <th>Time</th>
@@ -82,7 +84,7 @@
                         <td>{{ msg.hasMetadata ? "Yes" : "No" }}</td>
                         <td>
                           <button
-                            class="btn btn-sm btn-outline-secondary"
+                            class="fd-btn fd-btn-ghost fd-btn-sm"
                             (click)="showRawMessage(msg.rawMessage)"
                           >
                             View Raw
@@ -105,21 +107,22 @@
           </div>
         </div>
         <h6>Event Tables</h6>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                <h6 class="mb-0">JoinGameCommand Events ({{ joinGameEvents.length }})</h6>
+        <div class="fd-debug-row">
+          <div class="fd-debug-col-half">
+            <div class="fd-debug-card">
+              <div class="fd-debug-card-header">
+                <h6 class="fd-mb-0">JoinGameCommand Events ({{ joinGameEvents.length }})</h6>
                 <button
-                  class="btn btn-sm btn-outline-secondary"
+                  type="button"
+                  class="fd-btn fd-btn-ghost fd-btn-sm"
                   (click)="clearJoinEvents()"
                 >
                   Clear
                 </button>
               </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-sm">
+              <div class="fd-debug-card-body">
+                <div class="fd-debug-table-wrap">
+                  <table class="fd-debug-table">
                     <thead>
                       <tr>
                         <th>Time</th>
@@ -164,7 +167,7 @@
                       <tr *ngIf="joinGameEvents.length === 0">
                         <td
                           colspan="13"
-                          class="text-center text-muted"
+                          class="fd-text-center fd-text-muted"
                         >
                           No join events captured yet
                         </td>
@@ -175,20 +178,21 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                <h6 class="mb-0">CreateX01ScoreCommand Events ({{ scoreEvents.length }})</h6>
+          <div class="fd-debug-col-half">
+            <div class="fd-debug-card">
+              <div class="fd-debug-card-header">
+                <h6 class="fd-mb-0">CreateX01ScoreCommand Events ({{ scoreEvents.length }})</h6>
                 <button
-                  class="btn btn-sm btn-outline-secondary"
+                  type="button"
+                  class="fd-btn fd-btn-ghost fd-btn-sm"
                   (click)="clearScoreEvents()"
                 >
                   Clear
                 </button>
               </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-sm">
+              <div class="fd-debug-card-body">
+                <div class="fd-debug-table-wrap">
+                  <table class="fd-debug-table">
                     <thead>
                       <tr>
                         <th>Time</th>
@@ -213,7 +217,7 @@
                         <td>{{ event.metadata?.NextPlayer || "N/A" }}</td>
                         <td>
                           <button
-                            class="btn btn-sm btn-outline-info"
+                            class="fd-btn fd-btn-ghost fd-btn-sm"
                             (click)="showMetadata(event.metadata)"
                             [disabled]="!event.metadata"
                           >
@@ -253,7 +257,7 @@
     (click)="$event.stopPropagation()"
   >
     <div class="metadata-header">
-      <h5 class="mb-0">Metadata Details</h5>
+      <h5 class="fd-mb-0">Metadata Details</h5>
       <button
         class="btn-close"
         (click)="closeMetadataModal()"
@@ -278,9 +282,10 @@
     (click)="$event.stopPropagation()"
   >
     <div class="metadata-header">
-      <h5 class="mb-0">Raw WebSocket Message</h5>
+      <h5 class="fd-mb-0">Raw WebSocket Message</h5>
       <button
-        class="btn-close"
+        type="button"
+        class="fd-debug-close"
         (click)="closeRawMessageModal()"
       >
         <i class="bi bi-x-lg"></i>

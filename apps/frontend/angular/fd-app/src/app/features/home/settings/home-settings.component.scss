@@ -1,15 +1,36 @@
-.btn {
-  background: #ff5e78;
-  border: none;
+.fd-settings-header {
+  margin-bottom: 0.5rem;
 }
-.card-header-icons i {
+
+.fd-settings-back {
   cursor: pointer;
+  font-size: 1.25rem;
+  color: var(--fd-neon-cyan);
+  transition: opacity 0.2s ease;
 }
+
+.fd-settings-back:hover {
+  opacity: 0.85;
+}
+
+.fd-settings-title {
+  color: var(--fd-text);
+  line-height: 1.2;
+}
+
 .circle-button {
   border-radius: 50%;
   height: 28px;
   width: 28px;
   padding-left: 4px;
-  background: #ff5e78;
+  border: none;
+  cursor: pointer;
+  background: var(--fd-accent);
   color: white;
+  box-shadow: var(--fd-glow-red);
+  transition: transform 0.15s ease;
+}
+
+.circle-button:hover {
+  transform: scale(1.05);
 }

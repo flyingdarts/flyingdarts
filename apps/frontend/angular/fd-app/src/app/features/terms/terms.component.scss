@@ -3,33 +3,63 @@
   width: 100%;
 }
 
-.card {
-  border: none;
-  border-radius: 0.5rem;
+.fd-terms-page {
+  padding: 3rem 1.25rem;
+  width: 100%;
 }
 
-.card-title {
+.fd-terms-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.fd-terms-card {
+  background: var(--fd-surface);
+  border: 1px solid rgba(123, 79, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.fd-terms-title {
   font-size: 2rem;
-  font-weight: 600;
-  color: var(--bs-body-color);
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+  color: var(--fd-text);
+}
+
+.fd-terms-hr {
+  border: none;
+  border-top: 1px solid rgba(0, 245, 255, 0.12);
+  margin: 1.5rem 0;
+}
+
+.fd-terms-link {
+  color: var(--fd-neon-cyan);
+  text-decoration: none;
+}
+
+.fd-terms-link:hover {
+  text-decoration: underline;
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--bs-body-color);
+  margin-bottom: 0.75rem;
+  color: var(--fd-text);
 }
 
 section {
   p {
     line-height: 1.6;
-    color: var(--bs-body-color);
+    color: var(--fd-muted);
   }
 
   ul {
     padding-left: 1.5rem;
-    
+    color: var(--fd-muted);
+
     li {
       margin-bottom: 0.5rem;
       line-height: 1.6;
@@ -37,6 +67,6 @@ section {
   }
 }
 
-.text-muted {
-  font-size: 0.875rem;
+.fd-mt-4 {
+  margin-top: 1.5rem;
 }

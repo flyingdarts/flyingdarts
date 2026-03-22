@@ -1,5 +1,15 @@
-.card-custom {
-  background: #5a54e3;
-  color: white;
-  border-radius: 1.5rem;
+#homeContainer {
+  min-height: 0;
+}
+
+.fd-surface-card {
+  width: 100%;
+  max-width: 720px;
+  background: var(--fd-surface);
+  border: 1px solid rgba(123, 79, 255, 0.25);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow:
+    0 0 0 1px rgba(0, 245, 255, 0.04),
+    0 24px 48px rgba(0, 0, 0, 0.45);
 }

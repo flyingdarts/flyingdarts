@@ -12,6 +12,7 @@ import { FriendsService } from '../../../services/friends.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-friend.component.html',
+  styleUrl: './add-friend.component.scss',
 })
 export class AddFriendComponent implements OnInit {
   searchForm: FormGroup;

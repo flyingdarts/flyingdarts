@@ -1,9 +1,73 @@
-.btn {
-  background: black;
-  i {
-    color: white;
-    font-weight: 900;
+.fd-meet-root {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  padding-left: 0;
+
+  @media (min-width: 992px) {
+    padding-left: 0.5rem;
   }
+}
+
+.fd-meet-video-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.fd-meet-settings-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.fd-meet-settings-cluster {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.fd-meet-close {
+  color: var(--fd-text);
+  border-color: var(--fd-border);
+}
+
+.fd-meet-close i {
+  color: var(--fd-text);
+  font-weight: 900;
+}
+
+.fd-meet-mic {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  padding-bottom: 0.5rem;
+
+  @media (min-width: 992px) {
+    padding-left: 0.5rem;
+  }
+}
+
+.fd-meet-pip {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.fd-meet-pip-video {
+  width: 25%;
+  max-width: 180px;
+  min-width: 80px;
 }
 
 .video-container {
@@ -22,7 +86,6 @@
   visibility: hidden;
 }
 
-// Video switching classes
 .main-video {
   display: block !important;
   height: 100%;
@@ -34,6 +97,3 @@
 .corner-video {
   display: none !important;
 }
-
-// When it's the player's turn, show local video in main area and opponent in corner
-// When it's not the player's turn, show opponent video in main area and local in corner

@@ -1,91 +1,54 @@
-<div class="w-100">
-  <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-white">
-    <h2 class="m-0 text-white fw-bold">My Friends</h2>
-    <button
-      class="btn"
-      style="background: #ff5e78; color: white; border: none"
-      (click)="navigateToAddFriend()"
-    >
+<div class="fd-w-100">
+  <div class="fd-flex fd-justify-between fd-items-center fd-mb-4 fd-divider">
+    <h2 class="fd-m-0 fd-text-white fd-fw-bold">My Friends</h2>
+    <button type="button" class="fd-btn fd-btn-primary" (click)="navigateToAddFriend()">
       <i class="bi bi-person-plus"></i> Add Friend
     </button>
   </div>
 
   <div>
     <div *ngIf="friends$ | async as friends; else loadingFriends">
-      <div
-        *ngIf="friends.length === 0; else friendsGrid"
-        class="text-center py-5"
-      >
+      <div *ngIf="friends.length === 0; else friendsGrid" class="fd-text-center fd-py-5">
         <div>
-          <i class="bi bi-people display-1 text-white mb-4"></i>
-          <h3 class="text-white mb-2 fw-bold">No friends yet</h3>
-          <p class="text-white mb-4">Start by adding some friends to play darts together!</p>
-          <button
-            class="btn"
-            style="background: #ff5e78; color: white; border: none"
-            (click)="navigateToAddFriend()"
-          >
+          <i class="bi bi-people fd-display-1 fd-text-white fd-mb-4"></i>
+          <h3 class="fd-text-white fd-mb-2 fd-fw-bold">No friends yet</h3>
+          <p class="fd-text-white fd-mb-4">Start by adding some friends to play darts together!</p>
+          <button type="button" class="fd-btn fd-btn-primary" (click)="navigateToAddFriend()">
             Add Your First Friend
           </button>
         </div>
       </div>
 
       <ng-template #friendsGrid>
-        <div class="row g-4">
-          <div
-            *ngFor="let friend of friends"
-            class="col-12 col-md-6 col-lg-6"
-          >
-            <div class="d-flex align-items-center p-4 bg-white bg-opacity-10 rounded border border-white border-opacity-25 transition-all">
-              <div class="position-relative me-3">
+        <div class="fd-friends-grid">
+          <div *ngFor="let friend of friends" class="fd-friends-grid__cell">
+            <div class="fd-card-row transition-all">
+              <div class="fd-position-relative fd-me-3">
                 @if (friend.Picture) {
-                  <img
-                    src="{{ friend.Picture }}"
-                    alt="User Avatar"
-                    class="rounded-circle"
-                    style="width: 3rem; height: 3rem"
-                  />
+                  <img src="{{ friend.Picture }}" alt="" class="fd-rounded-circle fd-friend-avatar" />
                 } @else {
-                  <i
-                    class="bi bi-person-circle text-white"
-                    style="font-size: 3rem"
-                  ></i>
+                  <i class="bi bi-person-circle fd-text-white fd-friend-avatar-icon"></i>
                 }
                 <div
-                  class="position-absolute bottom-0 end-0 rounded-circle border border-white"
-                  [class.bg-success]="friend.IsOnline"
-                  [class.bg-secondary]="!friend.IsOnline"
-                  style="width: 12px; height: 12px"
+                  class="fd-status-dot"
+                  [class.fd-status-dot--online]="friend.IsOnline"
+                  [class.fd-status-dot--offline]="!friend.IsOnline"
                 ></div>
               </div>
-              <div class="flex-grow-1">
-                <h4 class="m-0 mb-1 text-white fw-bold">
-                  {{ friend.UserName }}
-                </h4>
-                <p class="m-0 mb-1 text-white small">
-                  {{ friend.Country }}
-                </p>
-                <p
-                  class="m-0 text-white"
-                  style="font-size: 0.8rem"
-                >
+              <div class="fd-flex-1">
+                <h4 class="fd-m-0 fd-mb-1 fd-text-white fd-fw-bold">{{ friend.UserName }}</h4>
+                <p class="fd-m-0 fd-mb-1 fd-text-white fd-small">{{ friend.Country }}</p>
+                <p class="fd-m-0 fd-text-white" style="font-size: 0.8rem">
                   Friends since {{ friend.FriendsSince | date: 'shortDate' }}
                 </p>
               </div>
-              <div class="d-flex flex-column gap-2">
+              <div class="fd-flex fd-flex-col fd-gap-2">
                 @if (friend.OpenGameId) {
-                  <button
-                    class="btn btn-sm"
-                    style="background: #ff5e78; color: white; border: none"
-                    (click)="joinGame(friend)"
-                  >
+                  <button type="button" class="fd-btn fd-btn-primary fd-btn-sm" (click)="joinGame(friend)">
                     <i class="bi bi-controller"></i> Join game
                   </button>
                 }
-                <button
-                  class="btn btn-sm btn-outline-light"
-                  (click)="removeFriend(friend)"
-                >
+                <button type="button" class="fd-btn fd-btn-ghost fd-btn-sm" (click)="removeFriend(friend)">
                   <i class="bi bi-person-x"></i> Remove
                 </button>
               </div>
@@ -96,14 +59,11 @@
     </div>
 
     <ng-template #loadingFriends>
-      <div class="text-center py-5">
-        <div
-          class="spinner-border text-white"
-          role="status"
-        >
-          <span class="visually-hidden">Loading...</span>
+      <div class="fd-text-center fd-py-5">
+        <div class="fd-spinner" role="status">
+          <span class="fd-sr-only">Loading...</span>
         </div>
-        <p class="mt-3 text-white">Loading friends...</p>
+        <p class="fd-mt-3 fd-text-white">Loading friends...</p>
       </div>
     </ng-template>
   </div>

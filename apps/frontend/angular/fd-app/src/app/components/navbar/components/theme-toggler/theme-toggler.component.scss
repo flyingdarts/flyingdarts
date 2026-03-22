@@ -1,4 +1,4 @@
-.btn-icon {
+.fd-theme-toggle {
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -6,5 +6,16 @@
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  color: white;
+  color: var(--fd-text);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--fd-border);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.fd-theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 16px rgba(0, 245, 255, 0.15);
 }

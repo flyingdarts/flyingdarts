@@ -1,0 +1,45 @@
+.fd-search-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 500px;
+  align-items: stretch;
+}
+
+.fd-search-input {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.fd-friends-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.fd-friends-grid__cell {
+  min-width: 0;
+}
+
+.fd-friend-avatar {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+}
+
+.fd-friend-avatar-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.fd-tip-card {
+  background: rgba(14, 15, 28, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.fd-tip-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}

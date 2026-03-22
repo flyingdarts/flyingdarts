@@ -1,14 +1,11 @@
 <div
   *ngIf="haveWinner(winnerName)"
   id="winnerPopupOverlay"
-  class="position-absolute z-1 d-flex w-100 justify-content-center align-items-center p-3"
+  class="fd-winner-overlay fd-flex fd-w-100 fd-items-center fd-justify-center fd-p-3"
 >
   <div class="winner-popup">
-    <div class="position-absolute">
-      <button
-        (click)="close()"
-        class="btn btn-primary"
-      >
+    <div class="fd-winner-close-wrap">
+      <button type="button" (click)="close()" class="fd-btn fd-btn-primary fd-winner-close">
         <i class="bi bi-x"></i>
       </button>
     </div>

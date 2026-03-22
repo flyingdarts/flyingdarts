@@ -1,57 +1,29 @@
-<div
-  class="d-flex w-100 justify-content-center align-items-center p-3"
->
-  <div class="card shadow-sm" style="max-width: 500px; width: 100%">
-    <div class="card-body p-4">
-      <h4 class="card-title mb-4">Login</h4>
+<div class="fd-flex fd-w-100 fd-items-center fd-justify-center fd-p-3">
+  <div class="fd-login-card">
+    <h4 class="fd-login-title">Login</h4>
 
-      <div class="mb-4">
-        <p class="mb-3">
-          You will be redirected to Authress to create your account or sign in. Authress supports the following authentication methods:
-        </p>
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          <span class="badge bg-primary">Google</span>
-          <span class="badge bg-primary">Microsoft</span>
-          <span class="badge bg-primary">Authress</span>
-          <span class="badge bg-primary">GitHub</span>
-        </div>
+    <div class="fd-mb-4">
+      <p class="fd-mb-3 fd-text-muted">
+        You will be redirected to Authress to create your account or sign in. Authress supports the following authentication methods:
+      </p>
+      <div class="fd-flex fd-flex-wrap fd-gap-2 fd-mb-3">
+        <span class="fd-login-badge">Google</span>
+        <span class="fd-login-badge">Microsoft</span>
+        <span class="fd-login-badge">Authress</span>
+        <span class="fd-login-badge">GitHub</span>
+      </div>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="fd-form-check fd-mb-4">
+        <input type="checkbox" id="acceptTerms" class="fd-form-check-input" formControlName="acceptTerms" />
+        <label for="acceptTerms" class="fd-text-white">
+          I accept the
+          <a routerLink="/terms" class="fd-login-link" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+        </label>
       </div>
 
-      <form
-        [formGroup]="loginForm"
-        (ngSubmit)="onSubmit()"
-      >
-        <div class="form-check mb-4">
-          <input
-            type="checkbox"
-            id="acceptTerms"
-            class="form-check-input"
-            formControlName="acceptTerms"
-          />
-          <label
-            for="acceptTerms"
-            class="form-check-label"
-          >
-            I accept the
-            <a
-              routerLink="/terms"
-              class="text-decoration-none"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Terms of Service
-            </a>
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          class="btn btn-primary w-100"
-          [disabled]="loginForm.invalid"
-        >
-          Continue to Login
-        </button>
-      </form>
-    </div>
+      <button type="submit" class="fd-btn fd-btn-primary fd-w-100" [disabled]="loginForm.invalid">Continue to Login</button>
+    </form>
   </div>
 </div>

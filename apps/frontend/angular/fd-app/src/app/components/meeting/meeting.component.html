@@ -1,16 +1,12 @@
-<dyte-ui-provider
-  id="dyte-provider"
-  class="position-relative h-100 w-100 pb-2 ps-0 ps-lg-2"
->
+<dyte-ui-provider id="dyte-provider" class="fd-meet-root">
   <div
-    class="d-flex justify-content-center align-items-center video-container w-100 overflow-hidden"
+    class="fd-meet-video-wrap video-container fd-w-100 fd-overflow-hidden"
     [class.video-hidden]="!isVisible"
   >
-    <!-- Main video element - shows local video when it's player's turn, opponent video otherwise -->
     <video
       #localVideo
       id="localVideo"
-      class="opponent-video rounded"
+      class="opponent-video fd-rounded"
       autoplay
       [class.main-video]="isPlayerTurn"
       [class.corner-video]="!isPlayerTurn"
@@ -18,52 +14,33 @@
     <video
       #opponentVideo
       id="opponentVideo"
-      class="opponent-video rounded"
+      class="opponent-video fd-rounded"
       autoplay
       [class.main-video]="!isPlayerTurn"
       [class.corner-video]="isPlayerTurn"
     ></video>
   </div>
 
-  <!-- Top Right Element -->
-  <div class="position-absolute top-0 end-0 d-flex justify-content-end z-1">
-    <dyte-settings-toggle
-      [hidden]="showSettings"
-      (click)="openSettings()"
-      class="dyte"
-    ></dyte-settings-toggle>
-    <div
-      class="row"
-      [hidden]="!showSettings"
-    >
-      <div class="col g-0 me-3">
-        <button
-          [hidden]="!showSettings"
-          class="btn btn-sm"
-          (click)="closeSettings()"
-        >
-          <i class="bi bi-x-lg"></i>
-        </button>
-      </div>
-    </div>
-    <div class="col g-0">
+  <div class="fd-meet-settings-bar">
+    <dyte-settings-toggle [hidden]="showSettings" (click)="openSettings()" class="dyte"></dyte-settings-toggle>
+    <div class="fd-meet-settings-cluster" [hidden]="!showSettings">
+      <button type="button" [hidden]="!showSettings" class="fd-btn fd-btn-ghost fd-btn-sm fd-meet-close" (click)="closeSettings()">
+        <i class="bi bi-x-lg"></i>
+      </button>
       <dyte-settings [hidden]="!showSettings"></dyte-settings>
     </div>
   </div>
 
-  <!-- Bottom Left Element -->
-  <div class="position-absolute bottom-0 start-0 ps-sm-0 ps-lg-2 pb-2 z-1">
+  <div class="fd-meet-mic">
     <dyte-mic-toggle class="dyte"></dyte-mic-toggle>
   </div>
 
-  <!-- Bottom Right Element -->
-  <div class="position-absolute bottom-0 end-0">
-    <div class="d-flex justify-content-end mb-2">
-      <!-- Small video element - shows opponent video when it's player's turn, local video otherwise -->
+  <div class="fd-meet-pip">
+    <div class="fd-flex fd-justify-end fd-mb-2">
       <video
         #opponentVideoSmall
         id="opponentVideoSmall"
-        class="w-25 rounded corner-video"
+        class="fd-meet-pip-video fd-rounded corner-video"
         autoplay
         [class.main-video]="isPlayerTurn"
         [class.corner-video]="!isPlayerTurn"
@@ -71,17 +48,12 @@
       <video
         #localVideoSmall
         id="localVideoSmall"
-        class="w-25 rounded corner-video"
+        class="fd-meet-pip-video fd-rounded corner-video"
         autoplay
         [class.main-video]="!isPlayerTurn"
         [class.corner-video]="isPlayerTurn"
       ></video>
     </div>
   </div>
-  <audio
-    #opponentAudio
-    id="opponentAudio"
-    class="rounded"
-    hidden
-  ></audio>
+  <audio #opponentAudio id="opponentAudio" class="fd-rounded" hidden></audio>
 </dyte-ui-provider>

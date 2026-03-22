@@ -1,5 +1,5 @@
-<div class="table-responsive">
-  <table class="table">
+<div class="fd-table-wrap">
+  <table class="fd-stats-table">
     <thead>
       <tr>
         <th id="bestOfDisplay" scope="col">Best Of {{ (gameState$ | async)?.game?.sets }}/{{ (gameState$ | async)?.game?.legs }}</th>
@@ -17,7 +17,7 @@
       </tr>
       <tr>
         <td colspan="4">
-          <div class="history d-flex flex-wrap">
+          <div class="history fd-flex fd-flex-wrap">
             {{ getHistory((gameState$ | async)?.player?.scores) }}
           </div>
         </td>
@@ -30,7 +30,7 @@
       </tr>
       <tr>
         <td colspan="4">
-          <div class="history d-flex flex-wrap">
+          <div class="history fd-flex fd-flex-wrap">
             {{ getHistory((gameState$ | async)?.opponent?.scores) }}
           </div>
         </td>

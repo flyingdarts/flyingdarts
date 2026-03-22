@@ -12,6 +12,7 @@ import { FlyingdartsSdkService } from 'src/sdk/flyingdarts-sdk-service';
   selector: 'app-home',
   imports: [CommonModule],
   templateUrl: './home-lobby.component.html',
+  styleUrl: './home-lobby.component.scss',
   standalone: true,
 })
 export class HomeLobbyComponent {

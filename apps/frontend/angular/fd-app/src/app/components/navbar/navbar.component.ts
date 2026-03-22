@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
@@ -20,8 +20,14 @@ export class NavbarComponent {
   userName$: Observable<string>;
   userPicture$: Observable<string>;
   isDarkMode$: Observable<boolean>;
+  mobileOpen = false;
+  userMenuOpen = false;
 
-  constructor(private readonly store: Store, private readonly authressService: AuthressService) {
+  constructor(
+    private readonly store: Store,
+    private readonly authressService: AuthressService,
+    private readonly elRef: ElementRef<HTMLElement>,
+  ) {
     this.isLoggedIn$ = authressService.isLoggedIn$; // TODO: Move to state
     this.userName$ = store
       .select(AppStateSelectors.selectUserName)
@@ -30,7 +36,37 @@ export class NavbarComponent {
     this.isDarkMode$ = store.select(AppStateSelectors.selectThemeMode).pipe(map(mode => mode === 'dark'));
   }
 
+  toggleMobile(): void {
+    this.mobileOpen = !this.mobileOpen;
+    if (!this.mobileOpen) {
+      this.userMenuOpen = false;
+    }
+  }
+
+  closeMobile(): void {
+    this.mobileOpen = false;
+    this.userMenuOpen = false;
+  }
+
+  toggleUserMenu(): void {
+    this.userMenuOpen = !this.userMenuOpen;
+  }
+
+  closeUserMenu(): void {
+    this.userMenuOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.elRef.nativeElement.contains(event.target as Node)) {
+      this.userMenuOpen = false;
+      this.mobileOpen = false;
+    }
+  }
+
   logout() {
+    this.closeMobile();
+    this.closeUserMenu();
     this.store.dispatch(AppStateActions.setLoading({ loading: true }));
     this.store.dispatch(AppStateActions.setIdToken({ idToken: undefined }));
     this.store.dispatch(AppStateActions.setUser({ user: undefined }));

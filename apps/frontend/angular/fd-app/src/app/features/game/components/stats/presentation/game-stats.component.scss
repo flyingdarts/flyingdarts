@@ -1,31 +1,30 @@
-table {
-  background-color: transparent;
-  --bs-table-bg: transparent;
-  border: transparent;
-  thead {
-    tr {
-      th {
-        font-weight: 900;
-        font-size: 1.25rem;
-        color: #f9617d;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-      }
-    }
+.fd-table-wrap {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.fd-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+
+  thead tr th {
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--fd-accent);
+    padding: 0.35rem 0.5rem 0.35rem 0;
+    text-align: left;
   }
-  tbody {
-    tr {
-      td {
-        font-weight: 900;
-        font-size: 1.25rem;
-        color: #7b81d8;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-      }
-    }
+
+  tbody tr td {
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--fd-accent2);
+    padding: 0.35rem 0.5rem 0.35rem 0;
   }
 }
 
 .history {
   font-size: 1rem;
+  color: var(--fd-muted);
 }

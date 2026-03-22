@@ -1,3 +1,60 @@
+.gi-wrap {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.gi-row {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+}
+
+.gi-pb {
+  padding-bottom: 0.25rem;
+}
+
+.gi-py {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.gi-pt {
+  padding-top: 0.25rem;
+}
+
+.gi-col {
+  padding: 0 0.25rem;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.gi-col-4 {
+  flex: 0 0 33.333%;
+  max-width: 33.333%;
+}
+
+.gi-col-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.gi-col-2 {
+  flex: 0 0 16.666%;
+  max-width: 16.666%;
+}
+
+.gi-col--stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.button.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
 .button {
   font-size: 1rem;
   font-weight: 700;

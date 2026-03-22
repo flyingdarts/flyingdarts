@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MarketingLayout from "./components/neon/MarketingLayout";
 import Community from "./pages/Community";
 import Features from "./pages/Features";
 import Index from "./pages/Index";
@@ -18,10 +19,38 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/protected" element={<Protected />} />
+          <Route
+            path="/"
+            element={
+              <MarketingLayout>
+                <Index />
+              </MarketingLayout>
+            }
+          />
+          <Route
+            path="/features"
+            element={
+              <MarketingLayout>
+                <Features />
+              </MarketingLayout>
+            }
+          />
+          <Route
+            path="/community"
+            element={
+              <MarketingLayout>
+                <Community />
+              </MarketingLayout>
+            }
+          />
+          <Route
+            path="/protected"
+            element={
+              <MarketingLayout>
+                <Protected />
+              </MarketingLayout>
+            }
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
