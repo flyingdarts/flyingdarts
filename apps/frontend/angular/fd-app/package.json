@@ -39,6 +39,9 @@
     "zone.js": "~0.14.3",
     "@flyingdarts/config": "*"
   },
+  "overrides": {
+    "@authress/login": "2.5.380"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.0.1",
     "@angular/cli": "^18.0.1",
