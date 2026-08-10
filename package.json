@@ -18,7 +18,7 @@
     "ajv": "^8.17.1",
     "aws-sdk": "^2.1528.0",
     "beachball": "^2.54.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.3.1",
     "turbo": "^2.5.4",
     "typescript": "~5.4.5",
     "@angular-devkit/build-angular": "18.0.1"
